@@ -6,524 +6,1071 @@
 <title>Admin — UA Flyers</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --azul: #00528F; --teal: #008091; --oscuro: #002447;
-    --cyan: #00C4DF; --fucsia: #ff436e;
-    --bg: #f0f4f8; --white: #ffffff;
-    --gray-light: #e8edf3; --gray-mid: #b0bec8; --gray-dark: #4a5568; --text: #1a2332;
-    --radius: 14px; --radius-sm: 8px;
-    --shadow: 0 4px 20px rgba(0,36,71,0.10); --shadow-lg: 0 8px 40px rgba(0,36,71,0.15);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+:root {
+  --azul:#00528F; --teal:#008091; --oscuro:#002447;
+  --cyan:#00C4DF; --fucsia:#ff436e;
+  --bg:#f0f4f8; --white:#fff;
+  --gl:#e8edf3; --gm:#b0bec8; --gd:#4a5568; --text:#1a2332;
+  --r:12px; --rs:8px;
+  --sh:0 4px 20px rgba(0,36,71,.10); --shl:0 8px 40px rgba(0,36,71,.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
 
-  /* ── PIN GATE ── */
-  #pin-gate {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, var(--oscuro) 0%, var(--azul) 60%, var(--teal) 100%);
-    padding: 24px;
-  }
-  .pin-card {
-    background: var(--white); border-radius: 20px; padding: 48px 40px;
-    width: 100%; max-width: 380px; box-shadow: var(--shadow-lg); text-align: center;
-  }
-  .pin-logo {
-    width: 56px; height: 56px;
-    background: linear-gradient(135deg, var(--azul), var(--teal));
-    border-radius: 14px; display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 20px; font-weight: 800; margin: 0 auto 24px;
-  }
-  .pin-title  { font-size: 20px; font-weight: 700; color: var(--oscuro); margin-bottom: 6px; }
-  .pin-sub    { font-size: 13px; color: var(--gray-dark); margin-bottom: 28px; }
-  .pin-input {
-    width: 100%; padding: 16px; border: 1.5px solid var(--gray-light);
-    border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif;
-    font-size: 28px; font-weight: 700; text-align: center; letter-spacing: 12px;
-    color: var(--oscuro); outline: none; margin-bottom: 16px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .pin-input:focus { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0,82,143,0.1); }
-  .pin-error { font-size: 12px; color: var(--fucsia); margin-bottom: 12px; min-height: 18px; }
-  .btn-pin {
-    width: 100%; padding: 13px; background: linear-gradient(135deg, var(--azul), var(--teal));
-    color: white; border: none; border-radius: var(--radius-sm);
-    font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: opacity 0.2s;
-  }
-  .btn-pin:hover { opacity: 0.9; }
+/* ── PIN GATE ── */
+#pin-gate{position:fixed;inset:0;background:linear-gradient(135deg,var(--oscuro),var(--azul) 60%,var(--teal));display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;}
+.pin-card{background:var(--white);border-radius:20px;padding:48px 40px;width:100%;max-width:360px;box-shadow:var(--shl);text-align:center;}
+.pin-logo{width:54px;height:54px;background:linear-gradient(135deg,var(--azul),var(--teal));border-radius:14px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:800;margin:0 auto 22px;}
+.pin-card h2{font-size:19px;font-weight:700;color:var(--oscuro);margin-bottom:6px;}
+.pin-card p{font-size:12px;color:var(--gd);margin-bottom:24px;}
+.pin-err{font-size:12px;color:var(--fucsia);min-height:18px;margin-bottom:10px;}
+.pin-input{width:100%;padding:14px;border:1.5px solid var(--gl);border-radius:var(--rs);font-family:'Poppins',sans-serif;font-size:26px;font-weight:700;text-align:center;letter-spacing:10px;color:var(--oscuro);outline:none;margin-bottom:14px;transition:border-color .2s;}
+.pin-input:focus{border-color:var(--azul);box-shadow:0 0 0 3px rgba(0,82,143,.1);}
+.btn-pin{width:100%;padding:13px;background:linear-gradient(135deg,var(--azul),var(--teal));color:white;border:none;border-radius:var(--rs);font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:opacity .2s;}
+.btn-pin:hover{opacity:.9;}
 
-  /* ── ADMIN APP ── */
-  #admin-app { display: none; flex-direction: column; min-height: 100vh; }
-  #admin-app.active { display: flex; }
+/* ── TOPBAR ── */
+.topbar{background:var(--oscuro);padding:0 20px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px;}
+.topbar-left{display:flex;align-items:center;gap:10px;}
+.topbar-logo{width:32px;height:32px;background:linear-gradient(135deg,var(--azul),var(--teal));border-radius:8px;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:800;}
+.topbar-title{font-size:13px;font-weight:700;color:white;}
+.badge-admin{background:rgba(255,67,110,.2);color:#ff8fa8;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;letter-spacing:.5px;}
+.topbar-center{display:flex;align-items:center;gap:6px;flex:1;justify-content:center;}
+.topbar-right{display:flex;align-items:center;gap:6px;}
+.tb-btn{background:rgba(255,255,255,.1);border:none;color:white;border-radius:7px;padding:6px 12px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.tb-btn:hover{background:rgba(255,255,255,.2);}
+.tb-btn.active{background:var(--azul);}
+.tb-btn.green{background:rgba(0,196,90,.25);color:#7fffd4;}
+.tb-btn.green:hover{background:rgba(0,196,90,.4);}
+.tb-btn.red{background:rgba(255,67,110,.2);color:#ff8fa8;}
+.tb-btn.red:hover{background:rgba(255,67,110,.35);}
+#design-name-input{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;padding:5px 12px;outline:none;width:200px;}
+#design-name-input:focus{border-color:var(--cyan);background:rgba(255,255,255,.18);}
+#design-name-input::placeholder{color:rgba(255,255,255,.45);}
 
-  .topbar {
-    background: var(--oscuro); padding: 0 32px; height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-    position: sticky; top: 0; z-index: 100;
-  }
-  .topbar-left { display: flex; align-items: center; gap: 12px; }
-  .topbar-logo {
-    width: 36px; height: 36px;
-    background: linear-gradient(135deg, var(--azul), var(--teal));
-    border-radius: 9px; display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 13px; font-weight: 800;
-  }
-  .topbar-title { font-size: 15px; font-weight: 700; color: white; }
-  .admin-badge {
-    background: rgba(255,67,110,0.2); color: #ff8fa8;
-    font-size: 10px; font-weight: 700; padding: 3px 10px;
-    border-radius: 10px; letter-spacing: 0.5px;
-  }
-  .topbar-right { display: flex; gap: 8px; }
-  .btn-topbar {
-    background: rgba(255,255,255,0.1); border: none; color: white;
-    border-radius: 8px; padding: 8px 14px;
-    font-family: 'Poppins', sans-serif; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: background 0.15s;
-    display: flex; align-items: center; gap: 6px; text-decoration: none;
-  }
-  .btn-topbar:hover { background: rgba(255,255,255,0.18); }
+/* ── MAIN LAYOUT ── */
+.main{display:flex;flex:1;overflow:hidden;}
 
-  .page { padding: 32px; max-width: 1200px; margin: 0 auto; width: 100%; }
+/* ── LEFT TOOLBAR ── */
+.toolbar{width:52px;background:var(--white);border-right:1px solid var(--gl);display:flex;flex-direction:column;align-items:center;padding:10px 0;gap:4px;flex-shrink:0;}
+.tool-btn{width:38px;height:38px;border:none;background:none;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gd);transition:all .15s;position:relative;}
+.tool-btn:hover{background:var(--gl);color:var(--azul);}
+.tool-btn.active{background:rgba(0,82,143,.1);color:var(--azul);}
+.tool-sep{width:28px;height:1px;background:var(--gl);margin:4px 0;}
 
-  /* ── STATS ── */
-  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 32px; }
-  .stat-card { background: var(--white); border-radius: var(--radius); padding: 22px 24px; box-shadow: var(--shadow); }
-  .stat-label { font-size: 11px; font-weight: 600; color: var(--gray-dark); text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-value { font-size: 36px; font-weight: 800; color: var(--oscuro); margin: 4px 0 0; }
-  .stat-sub   { font-size: 11px; color: var(--gray-mid); margin-top: 2px; }
+/* ── CANVAS AREA ── */
+.canvas-area{flex:1;background:#2a2a3a;display:flex;align-items:center;justify-content:center;overflow:auto;position:relative;}
+.canvas-wrap{position:relative;box-shadow:0 10px 60px rgba(0,0,0,.5);}
+#main-canvas{display:block;cursor:default;}
 
-  /* ── TABS ── */
-  .tabs { display: flex; gap: 4px; background: var(--gray-light); border-radius: 10px; padding: 4px; margin-bottom: 24px; width: fit-content; }
-  .tab { padding: 7px 20px; border-radius: 7px; border: none; background: none; font-family: 'Poppins', sans-serif; font-size: 13px; font-weight: 500; color: var(--gray-dark); cursor: pointer; transition: all 0.15s; }
-  .tab.active { background: white; color: var(--oscuro); font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+/* ── FORMAT INDICATOR ── */
+.format-pill{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);color:white;font-size:10px;font-weight:600;padding:4px 12px;border-radius:10px;pointer-events:none;}
 
-  /* ── CARDS ── */
-  .card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; margin-bottom: 24px; }
-  .card-header { padding: 18px 24px; border-bottom: 1px solid var(--gray-light); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .card-header h2 { font-size: 15px; font-weight: 700; color: var(--oscuro); display: flex; align-items: center; gap: 8px; }
-  .card-body { padding: 24px; }
+/* ── RIGHT PANEL ── */
+.right-panel{width:260px;background:var(--white);border-left:1px solid var(--gl);display:flex;flex-direction:column;overflow:hidden;flex-shrink:0;}
+.panel-tabs{display:flex;border-bottom:1px solid var(--gl);}
+.panel-tab{flex:1;padding:10px 4px;border:none;background:none;font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;color:var(--gd);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.panel-tab.active{color:var(--azul);border-bottom-color:var(--azul);font-weight:600;}
+.panel-body{flex:1;overflow-y:auto;padding:14px;}
+.panel-section{margin-bottom:18px;}
+.panel-section-title{font-size:9px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
 
-  /* ── UPLOAD FORM ── */
-  .upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  @media (max-width: 640px) { .upload-grid { grid-template-columns: 1fr; } }
-  .form-group { display: flex; flex-direction: column; gap: 5px; }
-  .form-label { font-size: 11px; font-weight: 600; color: var(--gray-dark); text-transform: uppercase; letter-spacing: 0.5px; }
-  .form-input {
-    padding: 10px 14px; border: 1.5px solid var(--gray-light); border-radius: var(--radius-sm);
-    font-family: 'Poppins', sans-serif; font-size: 13px; color: var(--text);
-    background: var(--white); outline: none; transition: border-color 0.2s;
-  }
-  .form-input:focus { border-color: var(--azul); box-shadow: 0 0 0 3px rgba(0,82,143,0.08); }
+/* ── LAYERS ── */
+.layer-item{display:flex;align-items:center;gap:8px;padding:7px 8px;border-radius:7px;cursor:pointer;transition:background .1s;border:1.5px solid transparent;}
+.layer-item:hover{background:var(--bg);}
+.layer-item.selected{background:rgba(0,82,143,.07);border-color:rgba(0,82,143,.2);}
+.layer-icon{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;}
+.layer-name{flex:1;font-size:11px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.layer-lock{background:none;border:none;cursor:pointer;color:var(--gm);padding:2px;border-radius:4px;display:flex;transition:color .15s;}
+.layer-lock:hover{color:var(--fucsia);}
+.layer-lock.locked{color:var(--fucsia);}
+.layer-vis{background:none;border:none;cursor:pointer;color:var(--gm);padding:2px;border-radius:4px;display:flex;transition:color .15s;}
+.layer-vis.hidden-layer{color:var(--gl);}
+.layer-del{background:none;border:none;cursor:pointer;color:var(--gl);padding:2px;border-radius:4px;display:flex;transition:color .15s;}
+.layer-del:hover{color:var(--fucsia);}
 
-  .dropzone {
-    grid-column: 1 / -1; border: 2px dashed var(--gray-light); border-radius: var(--radius-sm);
-    padding: 36px 20px; text-align: center; cursor: pointer;
-    transition: border-color 0.2s, background 0.2s; position: relative;
-  }
-  .dropzone:hover, .dropzone.drag-over { border-color: var(--azul); background: rgba(0,82,143,0.02); }
-  .dropzone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
-  .dropzone-icon { color: var(--gray-mid); margin-bottom: 10px; }
-  .dropzone-title { font-size: 14px; font-weight: 600; color: var(--oscuro); margin-bottom: 4px; }
-  .dropzone-sub   { font-size: 12px; color: var(--gray-dark); }
+/* ── PROPS PANEL ── */
+.prop-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.prop-label{font-size:10px;font-weight:600;color:var(--gd);min-width:52px;flex-shrink:0;}
+.prop-input{flex:1;padding:5px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;}
+.prop-input:focus{border-color:var(--azul);}
+.prop-input[type=color]{padding:1px 3px;height:28px;cursor:pointer;}
+.prop-input[type=range]{padding:0;height:4px;accent-color:var(--azul);}
+.prop-textarea{width:100%;padding:6px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;resize:vertical;min-height:60px;transition:border-color .2s;}
+.prop-textarea:focus{border-color:var(--azul);}
+.prop-select{flex:1;padding:5px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;background:white;}
+.prop-2col{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+.prop-2col .prop-input{width:100%;}
 
-  .file-preview {
-    grid-column: 1 / -1; display: none;
-    align-items: center; gap: 10px; padding: 10px 14px;
-    background: rgba(0,82,143,0.05); border-radius: var(--radius-sm);
-    font-size: 12px; color: var(--azul); font-weight: 500;
-  }
+.lock-toggle{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1.5px solid var(--gl);cursor:pointer;transition:all .2s;margin-bottom:10px;}
+.lock-toggle.locked{border-color:var(--fucsia);background:rgba(255,67,110,.05);}
+.lock-toggle span{font-size:11px;font-weight:600;flex:1;}
+.lock-toggle.locked span{color:var(--fucsia);}
 
-  .upload-progress { grid-column: 1/-1; height: 4px; background: var(--gray-light); border-radius: 2px; overflow: hidden; display: none; }
-  .upload-progress-bar { height: 100%; background: linear-gradient(90deg, var(--azul), var(--teal)); width: 0; transition: width 0.3s; }
+/* ── DESIGNS LIST ── */
+.design-item{display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--rs);border:1.5px solid var(--gl);margin-bottom:8px;cursor:pointer;transition:all .15s;}
+.design-item:hover{border-color:var(--azul);background:rgba(0,82,143,.03);}
+.design-thumb{width:36px;height:54px;border-radius:5px;background:var(--gl);object-fit:cover;flex-shrink:0;}
+.design-thumb-ph{width:36px;height:54px;border-radius:5px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gm);flex-shrink:0;}
+.design-info{flex:1;min-width:0;}
+.design-info-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.design-info-cat{font-size:10px;color:var(--gm);}
+.design-actions{display:flex;gap:4px;}
+.design-act-btn{background:none;border:1px solid var(--gl);border-radius:5px;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gd);transition:all .15s;}
+.design-act-btn:hover{border-color:var(--azul);color:var(--azul);}
+.design-act-btn.del:hover{border-color:var(--fucsia);color:var(--fucsia);}
 
-  .msg { font-size: 12px; padding: 10px 14px; border-radius: 6px; grid-column: 1/-1; }
-  .msg-error   { background: #fff0f3; color: #c0002b; }
-  .msg-success { background: #e6f9f5; color: #006a4e; }
+/* ── TOGGLE (active state) ── */
+.active-toggle{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:8px;border:1.5px solid var(--gl);margin-bottom:8px;}
+.active-toggle span{font-size:11px;font-weight:500;color:var(--text);}
+.sw{position:relative;width:32px;height:18px;display:inline-block;}
+.sw input{opacity:0;width:0;height:0;}
+.sw-track{position:absolute;inset:0;background:var(--gl);border-radius:9px;cursor:pointer;transition:background .2s;}
+.sw-track::after{content:'';position:absolute;left:2px;top:2px;width:14px;height:14px;background:white;border-radius:50%;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
+input:checked+.sw-track{background:var(--teal);}
+input:checked+.sw-track::after{transform:translateX(14px);}
 
-  .btn-full {
-    grid-column: 1 / -1; background: linear-gradient(135deg, var(--azul), var(--teal));
-    color: white; border: none; border-radius: var(--radius-sm); padding: 13px 20px;
-    font-family: 'Poppins', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;
-  }
-  .btn-full:hover { opacity: 0.9; }
-  .btn-full:disabled { opacity: 0.55; cursor: not-allowed; }
+/* ── MISC ── */
+.btn-block{width:100%;padding:9px;border:none;border-radius:var(--rs);font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s;margin-bottom:6px;}
+.btn-primary-sm{background:linear-gradient(135deg,var(--azul),var(--teal));color:white;}
+.btn-primary-sm:hover{opacity:.9;}
+.btn-secondary-sm{background:var(--gl);color:var(--gd);}
+.btn-secondary-sm:hover{background:#d8e2ec;}
+.btn-danger-sm{background:rgba(255,67,110,.1);color:var(--fucsia);border:1px solid rgba(255,67,110,.2);}
+.btn-danger-sm:hover{background:rgba(255,67,110,.18);}
 
-  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--oscuro);color:white;padding:10px 20px;border-radius:10px;font-size:12px;font-weight:500;z-index:9998;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
 
-  /* ── TABLE ── */
-  .search-input { padding: 8px 14px; border: 1.5px solid var(--gray-light); border-radius: 20px; font-family: 'Poppins', sans-serif; font-size: 12px; outline: none; width: 220px; transition: border-color 0.2s; }
-  .search-input:focus { border-color: var(--azul); }
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th { text-align: left; font-size: 10px; font-weight: 700; color: var(--gray-mid); text-transform: uppercase; letter-spacing: 0.7px; padding: 12px 20px; border-bottom: 1px solid var(--gray-light); white-space: nowrap; }
-  td { padding: 14px 20px; font-size: 13px; border-bottom: 1px solid rgba(0,0,0,0.04); vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  tr:hover td { background: rgba(0,82,143,0.02); }
-  .thumb-cell { width: 42px; height: 56px; object-fit: cover; border-radius: 6px; background: var(--gray-light); display: block; }
-  .thumb-ph { width: 42px; height: 56px; background: var(--gray-light); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: var(--gray-mid); font-size: 9px; }
-  .tag { display: inline-block; padding: 3px 10px; border-radius: 10px; font-size: 10px; font-weight: 600; }
-  .tag-cat { background: rgba(0,82,143,0.08); color: var(--azul); }
-  .row-actions { display: flex; gap: 6px; }
-  .btn-icon { background: none; border: 1.5px solid var(--gray-light); border-radius: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--gray-dark); transition: all 0.15s; }
-  .btn-icon:hover { border-color: var(--azul); color: var(--azul); }
-  .btn-icon.danger:hover { border-color: var(--fucsia); color: var(--fucsia); }
-  .toggle-switch { position: relative; width: 36px; height: 20px; display: inline-block; }
-  .toggle-switch input { opacity: 0; width: 0; height: 0; }
-  .toggle-track { position: absolute; inset: 0; background: var(--gray-light); border-radius: 10px; cursor: pointer; transition: background 0.2s; }
-  .toggle-track::after { content: ''; position: absolute; left: 2px; top: 2px; width: 16px; height: 16px; background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
-  input:checked + .toggle-track { background: var(--teal); }
-  input:checked + .toggle-track::after { transform: translateX(16px); }
-  .empty-row td { text-align: center; padding: 48px; color: var(--gray-dark); font-size: 13px; }
+.sep{height:1px;background:var(--gl);margin:8px 0;}
+
+/* format selector */
+.fmt-btns{display:flex;gap:6px;margin-bottom:10px;}
+.fmt-btn{flex:1;padding:7px;border:1.5px solid var(--gl);border-radius:7px;background:white;font-family:'Poppins',sans-serif;font-size:10px;font-weight:600;color:var(--gd);cursor:pointer;text-align:center;transition:all .15s;}
+.fmt-btn.active{border-color:var(--azul);background:rgba(0,82,143,.07);color:var(--azul);}
+
+.empty-layers{text-align:center;padding:24px 12px;color:var(--gm);font-size:11px;}
+
+/* scrollbar */
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--gl);border-radius:2px;}
 </style>
 </head>
 <body>
 
-<!-- ══ PIN GATE ══ -->
+<!-- PIN GATE -->
 <div id="pin-gate">
   <div class="pin-card">
     <div class="pin-logo">ua</div>
-    <p class="pin-title">Panel de administración</p>
-    <p class="pin-sub">Ingresá el PIN para continuar</p>
-    <p class="pin-error" id="pin-error"></p>
-    <input type="password" class="pin-input" id="pin-input" maxlength="4" placeholder="••••"
-      onkeydown="if(event.key==='Enter') checkPin()" autofocus>
+    <h2>Panel de administración</h2>
+    <p>Ingresá el PIN para continuar</p>
+    <p class="pin-err" id="pin-err"></p>
+    <input type="password" class="pin-input" id="pin-input" maxlength="4" placeholder="••••" autofocus onkeydown="if(event.key==='Enter')checkPin()">
     <button class="btn-pin" onclick="checkPin()">Ingresar</button>
   </div>
 </div>
 
-<!-- ══ ADMIN APP ══ -->
-<div id="admin-app">
-  <div class="topbar">
-    <div class="topbar-left">
-      <div class="topbar-logo">ua</div>
-      <div class="topbar-title">UA Flyers</div>
-      <span class="admin-badge">ADMIN</span>
-    </div>
-    <div class="topbar-right">
-      <a href="index.html" class="btn-topbar">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-        Vista comercial
-      </a>
-      <button class="btn-topbar" onclick="lockAdmin()">
-        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Bloquear
-      </button>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">ua</div>
+    <div class="topbar-title">UA Flyers</div>
+    <span class="badge-admin">ADMIN</span>
+  </div>
+  <div class="topbar-center">
+    <input type="text" id="design-name-input" placeholder="Nombre del diseño…" value="Nuevo diseño">
+    <select id="design-category" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:11px;padding:5px 10px;outline:none;">
+      <option value="General">General</option>
+      <option value="Europa">Europa</option>
+      <option value="América">América</option>
+      <option value="Mundo">Mundo</option>
+      <option value="Corporativo">Corporativo</option>
+    </select>
+  </div>
+  <div class="topbar-right">
+    <button class="tb-btn" onclick="undo()" title="Deshacer (Ctrl+Z)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 5.7 6.7L3 7"/></svg> Deshacer
+    </button>
+    <button class="tb-btn" onclick="redo()" title="Rehacer (Ctrl+Y)">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M21 13A9 9 0 1 1 18.3 6.7L21 7"/></svg> Rehacer
+    </button>
+    <div style="width:1px;height:20px;background:rgba(255,255,255,.15);margin:0 4px;"></div>
+    <button class="tb-btn green" onclick="saveDesign()" id="btn-save">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar
+    </button>
+    <button class="tb-btn" onclick="newDesign()">
+      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nuevo
+    </button>
+    <button class="tb-btn red" onclick="lockAdmin()">
+      <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT TOOLBAR -->
+  <div class="toolbar">
+    <button class="tool-btn active" id="tool-select" onclick="setTool('select')" title="Seleccionar (V)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3l14 9-7 1-4 7z"/></svg>
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" id="tool-text" onclick="addText()" title="Texto (T)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+    </button>
+    <button class="tool-btn" id="tool-rect" onclick="addShape('rect')" title="Rectángulo (R)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+    </button>
+    <button class="tool-btn" id="tool-line" onclick="addShape('line')" title="Línea (L)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg>
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="triggerImageUpload()" title="Subir imagen">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    </button>
+    <button class="tool-btn" onclick="addQR()" title="Código QR">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/><line x1="19" y1="14" x2="19" y2="17"/><line x1="17" y1="19" x2="21" y2="19"/></svg>
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="setBg()" title="Fondo / imagen de fondo">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="8" cy="9" r="2"/><path d="M2 17l6-4 4 3 4-4 6 5"/></svg>
+    </button>
+    <div class="tool-sep"></div>
+    <button class="tool-btn" onclick="deleteSelected()" title="Eliminar seleccionado (Del)">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+    </button>
+  </div>
+
+  <!-- CANVAS AREA -->
+  <div class="canvas-area" id="canvas-area">
+    <div class="canvas-wrap" id="canvas-wrap">
+      <canvas id="main-canvas"></canvas>
+      <div class="format-pill" id="format-pill">Story 1080×1920</div>
     </div>
   </div>
 
-  <div class="page">
-    <!-- Stats -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-label">Flyers activos</div>
-        <div class="stat-value" id="stat-active">—</div>
-        <div class="stat-sub">publicados</div>
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="panel-tabs">
+      <button class="panel-tab active" onclick="switchPanel('props',this)">Propiedades</button>
+      <button class="panel-tab" onclick="switchPanel('layers',this)">Capas</button>
+      <button class="panel-tab" onclick="switchPanel('designs',this)">Diseños</button>
+    </div>
+
+    <!-- PROPS -->
+    <div class="panel-body" id="panel-props">
+      <div class="panel-section">
+        <div class="panel-section-title">Formato del canvas</div>
+        <div class="fmt-btns">
+          <button class="fmt-btn active" id="fmt-story" onclick="setFormat('story',this)">Story<br><span style="font-weight:400;font-size:9px">1080×1920</span></button>
+          <button class="fmt-btn" id="fmt-flyer" onclick="setFormat('flyer',this)">Flyer<br><span style="font-weight:400;font-size:9px">1080×1350</span></button>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Total flyers</div>
-        <div class="stat-value" id="stat-total">—</div>
-        <div class="stat-sub">en el sistema</div>
+      <div class="panel-section">
+        <div class="panel-section-title">Fondo del canvas</div>
+        <div class="prop-row">
+          <span class="prop-label">Color</span>
+          <input type="color" class="prop-input" id="bg-color" value="#002447" oninput="setBgColor(this.value)">
+        </div>
+        <button class="btn-block btn-secondary-sm" onclick="setBg()">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 17l6-4 4 3 4-4 6 5"/></svg>
+          Subir imagen de fondo
+        </button>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">Descargas totales</div>
-        <div class="stat-value" id="stat-downloads">—</div>
-        <div class="stat-sub">registradas</div>
+      <div class="sep"></div>
+      <div id="element-props">
+        <p style="font-size:11px;color:var(--gm);text-align:center;padding:20px 0;">Seleccioná un elemento para editar sus propiedades</p>
       </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('flyers', this)">Flyers</button>
-      <button class="tab" onclick="switchTab('logs', this)">Descargas</button>
-    </div>
-
-    <!-- TAB FLYERS -->
-    <div id="tab-flyers" class="tab-content active">
-      <div class="card">
-        <div class="card-header">
-          <h2>
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-            Subir nuevo flyer
-          </h2>
-        </div>
-        <div class="card-body">
-          <div class="upload-grid">
-            <div class="form-group">
-              <label class="form-label">Nombre del flyer *</label>
-              <input type="text" id="up-name" class="form-input" placeholder="Ej: Promo Europa Verano 2025">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Categoría</label>
-              <input type="text" id="up-category" class="form-input" placeholder="Ej: Europa, América, Mundo" list="cats-list">
-              <datalist id="cats-list"></datalist>
-            </div>
-
-            <div class="dropzone" id="dropzone"
-              ondragover="event.preventDefault(); this.classList.add('drag-over')"
-              ondragleave="this.classList.remove('drag-over')"
-              ondrop="handleDrop(event)">
-              <input type="file" accept="image/*,.pdf,.pptx" id="up-file" onchange="handleFileSelect(event)">
-              <div class="dropzone-icon">
-                <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-              </div>
-              <div class="dropzone-title">Arrastrá el archivo o hacé click</div>
-              <div class="dropzone-sub">JPG, PNG, PDF o PPTX — máx. 20 MB</div>
-            </div>
-
-            <div class="file-preview" id="file-preview"></div>
-
-            <div class="upload-progress" id="upload-progress">
-              <div class="upload-progress-bar" id="upload-bar"></div>
-            </div>
-
-            <div id="upload-msg"></div>
-
-            <button class="btn-full" id="btn-upload" onclick="uploadFlyer()">
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
-              Publicar flyer
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h2>Flyers publicados</h2>
-          <input type="text" class="search-input" placeholder="Buscar…" oninput="searchFlyers(this.value)">
-        </div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr>
-              <th>Preview</th><th>Nombre</th><th>Categoría</th>
-              <th>Fecha</th><th>Activo</th><th>Acciones</th>
-            </tr></thead>
-            <tbody id="flyers-tbody"><tr class="empty-row"><td colspan="6">Cargando…</td></tr></tbody>
-          </table>
-        </div>
+    <!-- LAYERS -->
+    <div class="panel-body" id="panel-layers" style="display:none">
+      <div id="layers-list">
+        <div class="empty-layers">Sin elementos aún.<br>Agregá texto, imágenes o formas.</div>
       </div>
     </div>
 
-    <!-- TAB LOGS -->
-    <div id="tab-logs" class="tab-content">
-      <div class="card">
-        <div class="card-header"><h2>Historial de descargas</h2></div>
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Fecha</th><th>Flyer</th></tr></thead>
-            <tbody id="logs-tbody"><tr class="empty-row"><td colspan="2">Cargando…</td></tr></tbody>
-          </table>
-        </div>
-      </div>
+    <!-- DESIGNS -->
+    <div class="panel-body" id="panel-designs" style="display:none">
+      <button class="btn-block btn-primary-sm" onclick="saveDesign()" style="margin-bottom:14px">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
+        Guardar diseño actual
+      </button>
+      <div id="designs-list"><p style="font-size:11px;color:var(--gm);text-align:center;padding:20px 0;">Cargando diseños…</p></div>
     </div>
   </div>
 </div>
 
-<!-- Firebase -->
+<!-- hidden inputs -->
+<input type="file" id="img-upload" accept="image/*" style="display:none" onchange="handleImageUpload(event)">
+<input type="file" id="bg-upload" accept="image/*" style="display:none" onchange="handleBgUpload(event)">
+<div class="toast" id="toast"></div>
+
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
 <script>
-const FIREBASE_CONFIG = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_PROJECT.firebaseapp.com",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_PROJECT.appspot.com",
-  messagingSenderId: "TU_SENDER_ID",
-  appId: "TU_APP_ID"
+// ═══════════════════════════════════════════════════════
+//  CONFIG — reemplazá con tus credenciales
+// ═══════════════════════════════════════════════════════
+const FB = {
+  apiKey:"TU_API_KEY", authDomain:"TU_PROJECT.firebaseapp.com",
+  projectId:"TU_PROJECT_ID", storageBucket:"TU_PROJECT.appspot.com",
+  messagingSenderId:"TU_SENDER_ID", appId:"TU_APP_ID"
 };
-
 const ADMIN_PIN = "4896";
 
-firebase.initializeApp(FIREBASE_CONFIG);
-const db      = firebase.firestore();
+firebase.initializeApp(FB);
+const db = firebase.firestore();
 const storage = firebase.storage();
 
-let allFlyers    = [];
-let selectedFile = null;
-
-// ── PIN ──
-function checkPin() {
-  const val = document.getElementById('pin-input').value;
-  if (val === ADMIN_PIN) {
-    document.getElementById('pin-gate').style.display   = 'none';
-    document.getElementById('admin-app').classList.add('active');
-    loadFlyers();
+// ═══════════════════════════════════════════════════════
+//  PIN
+// ═══════════════════════════════════════════════════════
+function checkPin(){
+  if(document.getElementById('pin-input').value===ADMIN_PIN){
+    document.getElementById('pin-gate').style.display='none';
+    init();
   } else {
-    document.getElementById('pin-error').textContent = 'PIN incorrecto. Intentá de nuevo.';
-    document.getElementById('pin-input').value = '';
+    document.getElementById('pin-err').textContent='PIN incorrecto';
+    document.getElementById('pin-input').value='';
     document.getElementById('pin-input').focus();
   }
 }
-
-function lockAdmin() {
-  document.getElementById('pin-gate').style.display = 'flex';
-  document.getElementById('admin-app').classList.remove('active');
-  document.getElementById('pin-input').value = '';
-  document.getElementById('pin-error').textContent = '';
-  document.getElementById('pin-input').focus();
+function lockAdmin(){
+  document.getElementById('pin-gate').style.display='flex';
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-err').textContent='';
 }
 
-// ── TABS ──
-function switchTab(name, el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+// ═══════════════════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════════════════
+const FORMATS = {
+  story:{ w:1080, h:1920, label:'Story 1080×1920', scale:0.35 },
+  flyer:{ w:1080, h:1350, label:'Flyer 1080×1350', scale:0.35 }
+};
+
+let state = {
+  format:'story',
+  bgColor:'#002447',
+  bgImageData: null,   // data URL
+  elements:[],
+  currentId: null,
+  editingDesignId: null
+};
+
+let undoStack=[], redoStack=[];
+let dragging=false, resizing=false;
+let dragOffX=0, dragOffY=0;
+let resizeHandle='';
+
+const canvas = document.getElementById('main-canvas');
+const ctx = canvas.getContext('2d');
+
+// ═══════════════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════════════
+function init(){
+  setFormat('story', document.getElementById('fmt-story'));
+  loadDesigns();
+  bindKeys();
+}
+
+// ═══════════════════════════════════════════════════════
+//  FORMAT
+// ═══════════════════════════════════════════════════════
+function setFormat(fmt, el){
+  state.format = fmt;
+  const f = FORMATS[fmt];
+  canvas.width  = f.w;
+  canvas.height = f.h;
+  canvas.style.width  = f.w * f.scale + 'px';
+  canvas.style.height = f.h * f.scale + 'px';
+  document.getElementById('format-pill').textContent = f.label;
+  document.querySelectorAll('.fmt-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
-  document.getElementById(`tab-${name}`).classList.add('active');
-  if (name === 'logs') loadLogs();
+  redraw();
 }
 
-// ── FILE ──
-function handleFileSelect(e) { const f = e.target.files[0]; if (f) setFile(f); }
-function handleDrop(e) {
-  e.preventDefault();
-  document.getElementById('dropzone').classList.remove('drag-over');
-  const f = e.dataTransfer.files[0]; if (f) setFile(f);
+// ═══════════════════════════════════════════════════════
+//  ELEMENT FACTORY
+// ═══════════════════════════════════════════════════════
+let idCounter = 1;
+function makeId(){ return 'el_'+(idCounter++); }
+
+function makeText(){
+  return { id:makeId(), type:'text', x:200, y:300, w:600, h:80,
+    text:'Texto de ejemplo', fontFamily:'Poppins', fontSize:48, fontWeight:'700',
+    color:'#ffffff', align:'left', locked:false, visible:true,
+    label:'Texto' };
 }
-function setFile(file) {
-  selectedFile = file;
-  const mb = (file.size / 1024 / 1024).toFixed(1);
-  const prev = document.getElementById('file-preview');
-  prev.style.display = 'flex';
-  prev.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13,2 13,9 20,9"/></svg> ${file.name} <span style="color:var(--gray-mid); margin-left:6px">${mb} MB</span>`;
+function makeRect(){
+  return { id:makeId(), type:'rect', x:200, y:400, w:680, h:200,
+    fill:'rgba(0,82,143,0.7)', stroke:'none', strokeWidth:0,
+    radius:20, locked:false, visible:true, label:'Rectángulo' };
+}
+function makeLine(){
+  return { id:makeId(), type:'line', x:100, y:600, w:880, h:4,
+    fill:'#00C4DF', locked:false, visible:true, label:'Línea' };
+}
+function makeImage(dataUrl, w, h){
+  return { id:makeId(), type:'image', x:300, y:400, w:w, h:h,
+    src:dataUrl, locked:false, visible:true, label:'Imagen' };
+}
+function makeQR(url){
+  return { id:makeId(), type:'qr', x:800, y:100, w:200, h:200,
+    url: url||'https://universal-assistance.com',
+    locked:false, visible:true, label:'QR' };
 }
 
-// ── UPLOAD ──
-async function uploadFlyer() {
-  const name     = document.getElementById('up-name').value.trim();
-  const category = document.getElementById('up-category').value.trim();
-  if (!name)         { showMsg('Ingresá un nombre para el flyer', 'error'); return; }
-  if (!selectedFile) { showMsg('Seleccioná un archivo', 'error'); return; }
+// ═══════════════════════════════════════════════════════
+//  ADD ELEMENTS
+// ═══════════════════════════════════════════════════════
+function addText(){ saveUndo(); state.elements.push(makeText()); selectEl(state.elements[state.elements.length-1].id); redraw(); updateLayers(); }
+function addShape(t){ saveUndo(); state.elements.push(t==='rect'?makeRect():makeLine()); selectEl(state.elements[state.elements.length-1].id); redraw(); updateLayers(); }
+function addQR(){
+  const url = prompt('URL para el QR:', 'https://universal-assistance.com');
+  if(!url) return;
+  saveUndo();
+  state.elements.push(makeQR(url));
+  selectEl(state.elements[state.elements.length-1].id);
+  redraw(); updateLayers();
+}
+function triggerImageUpload(){ document.getElementById('img-upload').click(); }
+function setBg(){ document.getElementById('bg-upload').click(); }
 
-  const btn = document.getElementById('btn-upload');
-  btn.disabled = true;
-  btn.innerHTML = `<span class="spinner"></span> Subiendo…`;
-  document.getElementById('upload-progress').style.display = '';
-  showMsg('');
+function handleImageUpload(e){
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    const img = new Image();
+    img.onload = () => {
+      saveUndo();
+      // scale to fit reasonably on canvas
+      const ratio = Math.min(600/img.width, 400/img.height);
+      const w = Math.round(img.width*ratio), h = Math.round(img.height*ratio);
+      state.elements.push(makeImage(ev.target.result, w, h));
+      selectEl(state.elements[state.elements.length-1].id);
+      redraw(); updateLayers();
+    };
+    img.src = ev.target.result;
+  };
+  r.readAsDataURL(file);
+  e.target.value='';
+}
+
+function handleBgUpload(e){
+  const file = e.target.files[0]; if(!file) return;
+  const r = new FileReader();
+  r.onload = ev => { saveUndo(); state.bgImageData = ev.target.result; redraw(); };
+  r.readAsDataURL(file);
+  e.target.value='';
+}
+
+function setBgColor(c){ saveUndo(); state.bgColor=c; redraw(); }
+
+// ═══════════════════════════════════════════════════════
+//  DRAW
+// ═══════════════════════════════════════════════════════
+const imgCache = {};
+function getImg(src){
+  if(imgCache[src]) return imgCache[src];
+  const img = new Image();
+  img.onload = () => { imgCache[src]=img; redraw(); };
+  img.src = src;
+  imgCache[src] = img;
+  return null;
+}
+
+// QR generation — simple module pattern
+function drawQR(ctx, el){
+  // Basic visual placeholder — uses data URL from qrcode lib if available
+  const { x,y,w,h } = el;
+  ctx.fillStyle='white';
+  ctx.fillRect(x,y,w,h);
+  ctx.strokeStyle='#002447'; ctx.lineWidth=4;
+  ctx.strokeRect(x,y,w,h);
+  // draw a simple QR-like pattern as placeholder
+  const cell = Math.floor(w/7);
+  const positions = [[0,0],[4,0],[0,4],[5,5],[5,6],[6,5],[6,6],[1,1],[4,1],[1,4],[2,2],[3,3],[4,4],[2,4],[4,2]];
+  ctx.fillStyle='#002447';
+  positions.forEach(([ci,ri])=>{
+    ctx.fillRect(x+ci*cell+2, y+ri*cell+2, cell-1, cell-1);
+  });
+  // finder squares
+  [[0,0],[4,0],[0,4]].forEach(([ci,ri])=>{
+    ctx.strokeStyle='#002447'; ctx.lineWidth=2;
+    ctx.strokeRect(x+ci*cell, y+ri*cell, cell*3, cell*3);
+    ctx.fillStyle='#002447';
+    ctx.fillRect(x+ci*cell+cell, y+ri*cell+cell, cell, cell);
+  });
+  // url label
+  ctx.fillStyle='#444'; ctx.font='bold 18px Poppins,sans-serif'; ctx.textAlign='center';
+  ctx.fillText(el.url.replace('https://',''), x+w/2, y+h+24);
+}
+
+function redraw(){
+  const f = FORMATS[state.format];
+  ctx.clearRect(0,0,f.w,f.h);
+
+  // background
+  if(state.bgImageData){
+    const bi = getImg(state.bgImageData);
+    if(bi) ctx.drawImage(bi,0,0,f.w,f.h);
+    else { ctx.fillStyle=state.bgColor; ctx.fillRect(0,0,f.w,f.h); }
+  } else {
+    ctx.fillStyle=state.bgColor; ctx.fillRect(0,0,f.w,f.h);
+  }
+
+  // elements
+  state.elements.forEach(el => {
+    if(!el.visible) return;
+    ctx.save();
+    if(el.type==='text'){
+      ctx.font = `${el.fontWeight} ${el.fontSize}px '${el.fontFamily}',sans-serif`;
+      ctx.fillStyle = el.color;
+      ctx.textAlign = el.align||'left';
+      const ax = el.align==='center' ? el.x+el.w/2 : el.align==='right' ? el.x+el.w : el.x;
+      // word wrap
+      wrapText(ctx, el.text, ax, el.y+el.fontSize, el.w, el.fontSize*1.3);
+    } else if(el.type==='rect'){
+      ctx.fillStyle=el.fill||'transparent';
+      if(el.radius>0){
+        rr(ctx,el.x,el.y,el.w,el.h,el.radius); ctx.fill();
+      } else { ctx.fillRect(el.x,el.y,el.w,el.h); }
+      if(el.stroke&&el.stroke!=='none'&&el.strokeWidth>0){
+        ctx.strokeStyle=el.stroke; ctx.lineWidth=el.strokeWidth;
+        if(el.radius>0){ rr(ctx,el.x,el.y,el.w,el.h,el.radius); ctx.stroke(); }
+        else ctx.strokeRect(el.x,el.y,el.w,el.h);
+      }
+    } else if(el.type==='line'){
+      ctx.fillStyle=el.fill||'#ffffff';
+      ctx.fillRect(el.x,el.y,el.w,el.h);
+    } else if(el.type==='image'){
+      const img = getImg(el.src);
+      if(img) ctx.drawImage(img,el.x,el.y,el.w,el.h);
+    } else if(el.type==='qr'){
+      drawQR(ctx,el);
+    }
+    ctx.restore();
+
+    // selection handles
+    if(el.id===state.currentId){
+      const sel = '#00C4DF';
+      ctx.strokeStyle=sel; ctx.lineWidth=2;
+      ctx.setLineDash([8,4]);
+      ctx.strokeRect(el.x-2,el.y-2,el.w+4,el.h+4);
+      ctx.setLineDash([]);
+      // handles
+      const hs=10;
+      [
+        [el.x-hs/2, el.y-hs/2], [el.x+el.w/2-hs/2, el.y-hs/2], [el.x+el.w-hs/2, el.y-hs/2],
+        [el.x-hs/2, el.y+el.h/2-hs/2], [el.x+el.w-hs/2, el.y+el.h/2-hs/2],
+        [el.x-hs/2, el.y+el.h-hs/2], [el.x+el.w/2-hs/2, el.y+el.h-hs/2], [el.x+el.w-hs/2, el.y+el.h-hs/2]
+      ].forEach(([hx,hy])=>{
+        ctx.fillStyle=sel; ctx.fillRect(hx,hy,hs,hs);
+        ctx.strokeStyle='white'; ctx.lineWidth=1.5; ctx.strokeRect(hx,hy,hs,hs);
+      });
+      // lock indicator
+      if(el.locked){
+        ctx.fillStyle='rgba(255,67,110,.85)';
+        ctx.font='bold 28px sans-serif'; ctx.textAlign='center';
+        ctx.fillText('🔒', el.x+el.w-20, el.y+28);
+      }
+    }
+  });
+}
+
+function wrapText(ctx,text,x,y,maxW,lineH){
+  const words=text.split(' '); let line='', cy=y;
+  for(let i=0;i<words.length;i++){
+    const test=line+words[i]+' ';
+    if(ctx.measureText(test).width>maxW&&i>0){ ctx.fillText(line.trim(),x,cy); line=words[i]+' '; cy+=lineH; }
+    else line=test;
+  }
+  ctx.fillText(line.trim(),x,cy);
+}
+
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
+}
+
+// ═══════════════════════════════════════════════════════
+//  SELECT & DRAG
+// ═══════════════════════════════════════════════════════
+function getScale(){ return FORMATS[state.format].scale; }
+
+function canvasCoords(e){
+  const rect = canvas.getBoundingClientRect();
+  const s = getScale();
+  return { x:(e.clientX-rect.left)/s, y:(e.clientY-rect.top)/s };
+}
+
+function hitEl(x,y){
+  for(let i=state.elements.length-1;i>=0;i--){
+    const el=state.elements[i];
+    if(!el.visible) continue;
+    if(x>=el.x&&x<=el.x+el.w&&y>=el.y&&y<=el.y+el.h) return el;
+  }
+  return null;
+}
+
+const HANDLE_SIZE=10;
+function hitHandle(el,x,y){
+  if(!el) return '';
+  const hs=HANDLE_SIZE, pts={
+    'nw':[el.x,el.y], 'n':[el.x+el.w/2,el.y], 'ne':[el.x+el.w,el.y],
+    'w':[el.x,el.y+el.h/2], 'e':[el.x+el.w,el.y+el.h/2],
+    'sw':[el.x,el.y+el.h], 's':[el.x+el.w/2,el.y+el.h], 'se':[el.x+el.w,el.y+el.h]
+  };
+  for(const [h,[hx,hy]] of Object.entries(pts)){
+    if(x>=hx-hs/2&&x<=hx+hs/2&&y>=hy-hs/2&&y<=hy+hs/2) return h;
+  }
+  return '';
+}
+
+canvas.addEventListener('mousedown',e=>{
+  const {x,y}=canvasCoords(e);
+  const sel = state.elements.find(el=>el.id===state.currentId)||null;
+  const handle = sel ? hitHandle(sel,x,y) : '';
+  if(handle){
+    resizing=true; resizeHandle=handle;
+    canvas.style.cursor='se-resize';
+    saveUndo();
+    return;
+  }
+  const hit=hitEl(x,y);
+  if(hit){
+    if(hit.id!==state.currentId){ selectEl(hit.id); }
+    if(!hit.locked){ dragging=true; dragOffX=x-hit.x; dragOffY=y-hit.y; saveUndo(); }
+  } else {
+    selectEl(null); redraw();
+  }
+});
+
+canvas.addEventListener('mousemove',e=>{
+  const {x,y}=canvasCoords(e);
+  if(dragging){
+    const el=state.elements.find(el=>el.id===state.currentId);
+    if(el&&!el.locked){ el.x=Math.round(x-dragOffX); el.y=Math.round(y-dragOffY); redraw(); }
+  } else if(resizing){
+    const el=state.elements.find(el=>el.id===state.currentId);
+    if(el&&!el.locked){
+      const r=resizeHandle;
+      if(r.includes('e')) el.w=Math.max(20,Math.round(x-el.x));
+      if(r.includes('s')) el.h=Math.max(10,Math.round(y-el.y));
+      if(r.includes('w')){ const rEdge=el.x+el.w; el.x=Math.round(x); el.w=Math.max(20,rEdge-el.x); }
+      if(r.includes('n')){ const bEdge=el.y+el.h; el.y=Math.round(y); el.h=Math.max(10,bEdge-el.y); }
+      redraw();
+    }
+  } else {
+    const sel=state.elements.find(el=>el.id===state.currentId);
+    const handle=sel?hitHandle(sel,x,y):'';
+    if(handle) canvas.style.cursor='se-resize';
+    else {
+      const hit=hitEl(x,y);
+      canvas.style.cursor=hit?(hit.locked?'not-allowed':'move'):'default';
+    }
+  }
+});
+
+canvas.addEventListener('mouseup',()=>{ dragging=false; resizing=false; updateLayers(); });
+canvas.addEventListener('dblclick',e=>{
+  const {x,y}=canvasCoords(e);
+  const hit=hitEl(x,y);
+  if(hit&&hit.type==='text'&&!hit.locked){
+    const nv=prompt('Editar texto:',hit.text);
+    if(nv!==null){ saveUndo(); hit.text=nv; redraw(); updateProps(); }
+  }
+});
+
+function selectEl(id){
+  state.currentId=id;
+  updateProps();
+  updateLayers();
+  redraw();
+}
+
+function deleteSelected(){
+  if(!state.currentId) return;
+  const el=state.elements.find(el=>el.id===state.currentId);
+  if(el&&el.locked){ showToast('Elemento bloqueado'); return; }
+  saveUndo();
+  state.elements=state.elements.filter(el=>el.id!==state.currentId);
+  state.currentId=null;
+  redraw(); updateProps(); updateLayers();
+}
+
+// ═══════════════════════════════════════════════════════
+//  UNDO / REDO
+// ═══════════════════════════════════════════════════════
+function saveUndo(){
+  undoStack.push(JSON.stringify({elements:state.elements,bgColor:state.bgColor,bgImageData:state.bgImageData}));
+  if(undoStack.length>50) undoStack.shift();
+  redoStack=[];
+}
+function undo(){
+  if(!undoStack.length) return;
+  redoStack.push(JSON.stringify({elements:state.elements,bgColor:state.bgColor,bgImageData:state.bgImageData}));
+  const prev=JSON.parse(undoStack.pop());
+  state.elements=prev.elements; state.bgColor=prev.bgColor; state.bgImageData=prev.bgImageData;
+  state.currentId=null; redraw(); updateProps(); updateLayers();
+}
+function redo(){
+  if(!redoStack.length) return;
+  undoStack.push(JSON.stringify({elements:state.elements,bgColor:state.bgColor,bgImageData:state.bgImageData}));
+  const next=JSON.parse(redoStack.pop());
+  state.elements=next.elements; state.bgColor=next.bgColor; state.bgImageData=next.bgImageData;
+  state.currentId=null; redraw(); updateProps(); updateLayers();
+}
+
+// ═══════════════════════════════════════════════════════
+//  LAYERS PANEL
+// ═══════════════════════════════════════════════════════
+const LAYER_ICONS={text:'#00C4DF',rect:'#00528F',line:'#008091',image:'#ff436e',qr:'#002447'};
+const LAYER_LABELS={text:'T',rect:'▭',line:'—',image:'⬜',qr:'QR'};
+
+function updateLayers(){
+  const el=document.getElementById('layers-list');
+  if(!state.elements.length){ el.innerHTML='<div class="empty-layers">Sin elementos aún.</div>'; return; }
+  el.innerHTML=[...state.elements].reverse().map(item=>`
+    <div class="layer-item ${item.id===state.currentId?'selected':''}" onclick="selectEl('${item.id}')">
+      <div class="layer-icon" style="background:${LAYER_ICONS[item.type]||'#888'};color:white">${LAYER_LABELS[item.type]||'?'}</div>
+      <span class="layer-name">${item.label||item.type}</span>
+      <button class="layer-vis ${item.visible?'':'hidden-layer'}" onclick="event.stopPropagation();toggleVisible('${item.id}')" title="${item.visible?'Ocultar':'Mostrar'}">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>${!item.visible?'<line x1="2" y1="2" x2="22" y2="22"/>':''}</svg>
+      </button>
+      <button class="layer-lock ${item.locked?'locked':''}" onclick="event.stopPropagation();toggleLock('${item.id}')" title="${item.locked?'Desbloquear':'Bloquear para comerciales'}">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="${item.locked?'M7 11V7a5 5 0 0 1 10 0v4':'M7 11V7a5 5 0 0 1 9.9-1'}"/></svg>
+      </button>
+      <button class="layer-del" onclick="event.stopPropagation();deleteEl('${item.id}')" title="Eliminar">
+        <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function toggleLock(id){
+  const el=state.elements.find(e=>e.id===id);
+  if(el){ el.locked=!el.locked; redraw(); updateLayers(); updateProps(); }
+}
+function toggleVisible(id){
+  const el=state.elements.find(e=>e.id===id);
+  if(el){ el.visible=!el.visible; redraw(); updateLayers(); }
+}
+function deleteEl(id){
+  const el=state.elements.find(e=>e.id===id);
+  if(el&&el.locked){ showToast('Desbloqueá el elemento primero'); return; }
+  saveUndo();
+  state.elements=state.elements.filter(e=>e.id!==id);
+  if(state.currentId===id) state.currentId=null;
+  redraw(); updateProps(); updateLayers();
+}
+
+// ═══════════════════════════════════════════════════════
+//  PROPS PANEL
+// ═══════════════════════════════════════════════════════
+function updateProps(){
+  const el=state.elements.find(e=>e.id===state.currentId);
+  const container=document.getElementById('element-props');
+  if(!el){ container.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:20px 0;">Seleccioná un elemento para editar sus propiedades</p>'; return; }
+
+  const lockHtml=`
+    <div class="lock-toggle ${el.locked?'locked':''}" onclick="toggleLock('${el.id}')" id="lock-toggle">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="${el.locked?'M7 11V7a5 5 0 0 1 10 0v4':'M7 11V7a5 5 0 0 1 9.9-1'}"/></svg>
+      <span>${el.locked?'🔒 Bloqueado para comerciales':'🔓 Editable por comerciales'}</span>
+    </div>`;
+
+  const labelHtml=`
+    <div class="prop-row">
+      <span class="prop-label">Etiqueta</span>
+      <input type="text" class="prop-input" value="${el.label||''}" oninput="updateProp('label',this.value)" placeholder="Nombre del campo">
+    </div>`;
+
+  let specific='';
+  if(el.type==='text'){
+    specific=`
+      <div class="panel-section-title">Texto</div>
+      <div class="prop-row"><span class="prop-label">Contenido</span></div>
+      <textarea class="prop-textarea" oninput="updateProp('text',this.value)">${el.text}</textarea>
+      <div class="prop-row" style="margin-top:8px">
+        <span class="prop-label">Tamaño</span>
+        <input type="range" class="prop-input" min="12" max="200" value="${el.fontSize}" oninput="updatePropNum('fontSize',this.value)">
+        <span style="font-size:11px;color:var(--gd);min-width:30px">${el.fontSize}px</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Peso</span>
+        <select class="prop-select" onchange="updateProp('fontWeight',this.value)">
+          <option value="400" ${el.fontWeight==='400'?'selected':''}>Regular</option>
+          <option value="600" ${el.fontWeight==='600'?'selected':''}>SemiBold</option>
+          <option value="700" ${el.fontWeight==='700'?'selected':''}>Bold</option>
+          <option value="800" ${el.fontWeight==='800'?'selected':''}>ExtraBold</option>
+        </select>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Color</span>
+        <input type="color" class="prop-input" value="${el.color}" oninput="updateProp('color',this.value)">
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Alinear</span>
+        <select class="prop-select" onchange="updateProp('align',this.value)">
+          <option value="left" ${el.align==='left'?'selected':''}>Izquierda</option>
+          <option value="center" ${el.align==='center'?'selected':''}>Centro</option>
+          <option value="right" ${el.align==='right'?'selected':''}>Derecha</option>
+        </select>
+      </div>`;
+  } else if(el.type==='rect'){
+    specific=`
+      <div class="panel-section-title">Rectángulo</div>
+      <div class="prop-row">
+        <span class="prop-label">Relleno</span>
+        <input type="color" class="prop-input" value="${el.fill&&el.fill.startsWith('#')?el.fill:'#003366'}" oninput="updateProp('fill',this.value)">
+        <input type="range" class="prop-input" min="0" max="100" value="${Math.round(parseOpacity(el.fill)*100)}" oninput="updateFillOpacity(this.value)">
+        <span style="font-size:10px;color:var(--gd);min-width:28px" id="opval">${Math.round(parseOpacity(el.fill)*100)}%</span>
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Borde</span>
+        <input type="color" class="prop-input" value="${el.stroke&&el.stroke!=='none'?el.stroke:'#ffffff'}" oninput="updateProp('stroke',this.value)">
+        <input type="number" class="prop-input" value="${el.strokeWidth||0}" min="0" max="20" style="width:48px" oninput="updatePropNum('strokeWidth',this.value)">
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Radio</span>
+        <input type="range" class="prop-input" min="0" max="100" value="${el.radius||0}" oninput="updatePropNum('radius',this.value)">
+        <span style="font-size:11px;color:var(--gd);min-width:28px">${el.radius||0}px</span>
+      </div>`;
+  } else if(el.type==='line'){
+    specific=`
+      <div class="panel-section-title">Línea</div>
+      <div class="prop-row">
+        <span class="prop-label">Color</span>
+        <input type="color" class="prop-input" value="${el.fill||'#ffffff'}" oninput="updateProp('fill',this.value)">
+      </div>
+      <div class="prop-row">
+        <span class="prop-label">Grosor</span>
+        <input type="range" class="prop-input" min="1" max="40" value="${el.h||4}" oninput="updatePropNum('h',this.value)">
+        <span style="font-size:11px;color:var(--gd);min-width:28px">${el.h||4}px</span>
+      </div>`;
+  } else if(el.type==='qr'){
+    specific=`
+      <div class="panel-section-title">Código QR</div>
+      <div class="prop-row">
+        <span class="prop-label">URL</span>
+        <input type="text" class="prop-input" value="${el.url}" oninput="updateProp('url',this.value)">
+      </div>`;
+  } else if(el.type==='image'){
+    specific=`<div class="panel-section-title">Imagen</div>
+      <button class="btn-block btn-secondary-sm" onclick="triggerImageUpload()">Reemplazar imagen</button>`;
+  }
+
+  const posHtml=`
+    <div class="sep"></div>
+    <div class="panel-section-title">Posición y tamaño</div>
+    <div class="prop-2col">
+      <input type="number" class="prop-input" placeholder="X" value="${Math.round(el.x)}" oninput="updatePropNum('x',this.value)">
+      <input type="number" class="prop-input" placeholder="Y" value="${Math.round(el.y)}" oninput="updatePropNum('y',this.value)">
+      <input type="number" class="prop-input" placeholder="W" value="${Math.round(el.w)}" oninput="updatePropNum('w',this.value)">
+      <input type="number" class="prop-input" placeholder="H" value="${Math.round(el.h)}" oninput="updatePropNum('h',this.value)">
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:4px">
+      <button class="btn-block btn-secondary-sm" onclick="moveLayer('up')" style="flex:1;padding:6px">↑ Subir</button>
+      <button class="btn-block btn-secondary-sm" onclick="moveLayer('down')" style="flex:1;padding:6px">↓ Bajar</button>
+    </div>`;
+
+  container.innerHTML = lockHtml + labelHtml + specific + posHtml;
+}
+
+function parseOpacity(fill){
+  if(!fill) return 1;
+  const m=fill.match(/rgba?\([^)]+,\s*([\d.]+)\)/);
+  return m ? parseFloat(m[1]) : 1;
+}
+
+function updateFillOpacity(v){
+  const el=state.elements.find(e=>e.id===state.currentId); if(!el) return;
+  const cur=el.fill||'#003366';
+  let r=0,g=0,b=0;
+  if(cur.startsWith('#')){ r=parseInt(cur.slice(1,3),16);g=parseInt(cur.slice(3,5),16);b=parseInt(cur.slice(5,7),16); }
+  else { const m=cur.match(/[\d.]+/g); if(m){r=m[0];g=m[1];b=m[2];} }
+  el.fill=`rgba(${r},${g},${b},${v/100})`;
+  document.getElementById('opval').textContent=v+'%';
+  redraw();
+}
+
+function updateProp(key,val){ const el=state.elements.find(e=>e.id===state.currentId); if(!el) return; el[key]=val; redraw(); updateLayers(); }
+function updatePropNum(key,val){ const el=state.elements.find(e=>e.id===state.currentId); if(!el) return; el[key]=parseFloat(val)||0; redraw(); }
+function moveLayer(dir){
+  const idx=state.elements.findIndex(e=>e.id===state.currentId); if(idx<0) return;
+  saveUndo();
+  if(dir==='up'&&idx<state.elements.length-1){ [state.elements[idx],state.elements[idx+1]]=[state.elements[idx+1],state.elements[idx]]; }
+  else if(dir==='down'&&idx>0){ [state.elements[idx],state.elements[idx-1]]=[state.elements[idx-1],state.elements[idx]]; }
+  redraw(); updateLayers();
+}
+
+// ═══════════════════════════════════════════════════════
+//  PANEL TABS
+// ═══════════════════════════════════════════════════════
+function switchPanel(name,el){
+  document.querySelectorAll('.panel-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  ['props','layers','designs'].forEach(n=>document.getElementById('panel-'+n).style.display=n===name?'':'none');
+  if(name==='designs') loadDesigns();
+}
+
+// ═══════════════════════════════════════════════════════
+//  SAVE & LOAD
+// ═══════════════════════════════════════════════════════
+async function saveDesign(){
+  const name=document.getElementById('design-name-input').value.trim()||'Sin nombre';
+  const cat=document.getElementById('design-category').value;
+  const btn=document.getElementById('btn-save');
+  btn.innerHTML='<span class="spinner"></span>';
+
+  // generate thumbnail
+  const thumbData = canvas.toDataURL('image/jpeg',0.5);
+
+  const data={
+    name, category:cat, format:state.format,
+    bgColor:state.bgColor, bgImageData:state.bgImageData||null,
+    elements:state.elements,
+    active:true,
+    thumbnail:thumbData,
+    updatedAt:firebase.firestore.FieldValue.serverTimestamp()
+  };
 
   try {
-    const ext  = selectedFile.name.split('.').pop().toLowerCase();
-    const path = `flyers/${Date.now()}_${name.replace(/\s+/g,'_')}.${ext}`;
-    const ref  = storage.ref(path);
-    const task = ref.put(selectedFile);
-    task.on('state_changed', snap => {
-      document.getElementById('upload-bar').style.width =
-        (snap.bytesTransferred / snap.totalBytes * 100).toFixed(0) + '%';
-    });
-    await task;
-    const imageUrl = await ref.getDownloadURL();
-    await db.collection('flyers').add({
-      name, category: category || 'General', imageUrl,
-      storagePath: path, active: true,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-    showMsg('¡Flyer publicado correctamente!', 'success');
-    document.getElementById('up-name').value = '';
-    document.getElementById('up-category').value = '';
-    document.getElementById('up-file').value = '';
-    document.getElementById('file-preview').style.display = 'none';
-    document.getElementById('upload-bar').style.width = '0';
-    selectedFile = null;
-    loadFlyers();
-  } catch(e) {
-    console.error(e);
-    showMsg('Error al subir el archivo. Revisá la configuración de Firebase.', 'error');
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg> Publicar flyer`;
-  }
+    if(state.editingDesignId){
+      await db.collection('ua_flyer_designs').doc(state.editingDesignId).update(data);
+    } else {
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      const ref=await db.collection('ua_flyer_designs').add(data);
+      state.editingDesignId=ref.id;
+    }
+    showToast('✓ Diseño guardado');
+  } catch(e){ console.error(e); showToast('Error al guardar — revisá Firebase'); }
+  btn.innerHTML='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Guardar';
 }
 
-function showMsg(text, type = 'success') {
-  const el = document.getElementById('upload-msg');
-  el.innerHTML = text ? `<div class="msg msg-${type}">${text}</div>` : '';
-}
-
-// ── LOAD FLYERS ──
-async function loadFlyers() {
+async function loadDesigns(){
+  const el=document.getElementById('designs-list');
+  el.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">Cargando…</p>';
   try {
-    const snap = await db.collection('flyers').orderBy('createdAt', 'desc').get();
-    allFlyers  = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-    document.getElementById('stat-active').textContent = allFlyers.filter(f => f.active).length;
-    document.getElementById('stat-total').textContent  = allFlyers.length;
-    const cats = [...new Set(allFlyers.map(f => f.category).filter(Boolean))];
-    document.getElementById('cats-list').innerHTML = cats.map(c => `<option value="${c}">`).join('');
-    renderTable(allFlyers);
-  } catch(e) {
-    document.getElementById('flyers-tbody').innerHTML = `<tr class="empty-row"><td colspan="6">Error al cargar los flyers</td></tr>`;
-  }
-}
-
-function renderTable(flyers) {
-  const tbody = document.getElementById('flyers-tbody');
-  if (!flyers.length) { tbody.innerHTML = `<tr class="empty-row"><td colspan="6">No hay flyers aún. ¡Subí el primero!</td></tr>`; return; }
-  tbody.innerHTML = flyers.map(f => {
-    const date = f.createdAt?.toDate ? f.createdAt.toDate().toLocaleDateString('es-AR') : '—';
-    return `<tr>
-      <td>${f.imageUrl ? `<img class="thumb-cell" src="${f.imageUrl}" alt="${f.name}">` : `<div class="thumb-ph">sin img</div>`}</td>
-      <td style="font-weight:600; color:var(--oscuro)">${f.name}</td>
-      <td>${f.category ? `<span class="tag tag-cat">${f.category}</span>` : '—'}</td>
-      <td style="color:var(--gray-dark)">${date}</td>
-      <td>
-        <label class="toggle-switch">
-          <input type="checkbox" ${f.active ? 'checked' : ''} onchange="toggleActive('${f.id}', this.checked)">
-          <span class="toggle-track"></span>
-        </label>
-      </td>
-      <td>
-        <div class="row-actions">
-          <button class="btn-icon danger" onclick="deleteFlyer('${f.id}', '${f.storagePath || ''}')" title="Eliminar">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4h6v2"/></svg>
+    const snap=await db.collection('ua_flyer_designs').orderBy('updatedAt','desc').get();
+    if(snap.empty){ el.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">No hay diseños aún.</p>'; return; }
+    el.innerHTML=snap.docs.map(d=>{
+      const data=d.data();
+      return `<div class="design-item">
+        ${data.thumbnail?`<img class="design-thumb" src="${data.thumbnail}" alt="">`:`<div class="design-thumb-ph">sin img</div>`}
+        <div class="design-info">
+          <div class="design-info-name">${data.name||'Sin nombre'}</div>
+          <div class="design-info-cat">${data.category||''} · ${data.format||'story'}</div>
+        </div>
+        <div class="design-actions">
+          <button class="design-act-btn" onclick="loadDesign('${d.id}')" title="Editar">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+          <button class="design-act-btn" onclick="toggleDesignActive('${d.id}',${!data.active})" title="${data.active?'Desactivar':'Activar'}">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/>${data.active?'<path d="M9 12l2 2 4-4"/>':'<line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>'}</svg>
+          </button>
+          <button class="design-act-btn del" onclick="deleteDesign('${d.id}')" title="Eliminar">
+            <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
           </button>
         </div>
-      </td>
-    </tr>`;
-  }).join('');
-}
-
-function searchFlyers(q) {
-  const l = q.toLowerCase();
-  renderTable(allFlyers.filter(f => f.name?.toLowerCase().includes(l) || f.category?.toLowerCase().includes(l)));
-}
-
-async function toggleActive(id, val) {
-  await db.collection('flyers').doc(id).update({ active: val });
-  const f = allFlyers.find(x => x.id === id); if (f) f.active = val;
-  document.getElementById('stat-active').textContent = allFlyers.filter(f => f.active).length;
-}
-
-async function deleteFlyer(id, storagePath) {
-  if (!confirm('¿Seguro que querés eliminar este flyer? No se puede deshacer.')) return;
-  await db.collection('flyers').doc(id).delete();
-  if (storagePath) { try { await storage.ref(storagePath).delete(); } catch(e) {} }
-  allFlyers = allFlyers.filter(f => f.id !== id);
-  document.getElementById('stat-total').textContent  = allFlyers.length;
-  document.getElementById('stat-active').textContent = allFlyers.filter(f => f.active).length;
-  renderTable(allFlyers);
-}
-
-// ── LOGS ──
-async function loadLogs() {
-  const tbody = document.getElementById('logs-tbody');
-  tbody.innerHTML = `<tr class="empty-row"><td colspan="2">Cargando…</td></tr>`;
-  try {
-    const snap = await db.collection('download_logs').orderBy('timestamp', 'desc').limit(200).get();
-    document.getElementById('stat-downloads').textContent = snap.size;
-    if (snap.empty) { tbody.innerHTML = `<tr class="empty-row"><td colspan="2">Sin descargas registradas aún</td></tr>`; return; }
-    tbody.innerHTML = snap.docs.map(d => {
-      const data = d.data();
-      const date = data.timestamp?.toDate ? data.timestamp.toDate().toLocaleString('es-AR') : '—';
-      return `<tr>
-        <td style="color:var(--gray-dark); font-size:12px">${date}</td>
-        <td style="font-weight:500">${data.flyerName || '—'}</td>
-      </tr>`;
+      </div>`;
     }).join('');
-  } catch(e) { tbody.innerHTML = `<tr class="empty-row"><td colspan="2">Error al cargar los logs</td></tr>`; }
+  } catch(e){ console.error(e); el.innerHTML='<p style="font-size:11px;color:var(--fucsia);text-align:center;padding:16px 0">Error al cargar diseños</p>'; }
+}
+
+async function loadDesign(id){
+  try {
+    const snap=await db.collection('ua_flyer_designs').doc(id).get();
+    if(!snap.exists) return;
+    const data=snap.data();
+    state.editingDesignId=id;
+    state.format=data.format||'story';
+    state.bgColor=data.bgColor||'#002447';
+    state.bgImageData=data.bgImageData||null;
+    state.elements=data.elements||[];
+    state.currentId=null;
+    document.getElementById('design-name-input').value=data.name||'';
+    document.getElementById('design-category').value=data.category||'General';
+    const fmtEl=document.getElementById('fmt-'+state.format);
+    if(fmtEl) setFormat(state.format,fmtEl);
+    else setFormat('story',document.getElementById('fmt-story'));
+    undoStack=[]; redoStack=[];
+    redraw(); updateLayers(); updateProps();
+    showToast('Diseño cargado: '+data.name);
+  } catch(e){ console.error(e); }
+}
+
+async function toggleDesignActive(id,val){
+  await db.collection('ua_flyer_designs').doc(id).update({active:val});
+  loadDesigns();
+}
+
+async function deleteDesign(id){
+  if(!confirm('¿Eliminar este diseño?')) return;
+  await db.collection('ua_flyer_designs').doc(id).delete();
+  if(state.editingDesignId===id){ newDesign(); }
+  loadDesigns();
+}
+
+function newDesign(){
+  state.elements=[]; state.currentId=null; state.editingDesignId=null;
+  state.bgColor='#002447'; state.bgImageData=null;
+  document.getElementById('design-name-input').value='Nuevo diseño';
+  undoStack=[]; redoStack=[];
+  setFormat('story',document.getElementById('fmt-story'));
+  redraw(); updateLayers(); updateProps();
+}
+
+// ═══════════════════════════════════════════════════════
+//  KEYBOARD
+// ═══════════════════════════════════════════════════════
+function bindKeys(){
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+    if((e.ctrlKey||e.metaKey)&&e.key==='z'){ e.preventDefault(); undo(); }
+    if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.shiftKey&&e.key==='z'))){ e.preventDefault(); redo(); }
+    if((e.ctrlKey||e.metaKey)&&e.key==='s'){ e.preventDefault(); saveDesign(); }
+    if(e.key==='Delete'||e.key==='Backspace') deleteSelected();
+    if(e.key==='t'||e.key==='T') addText();
+    if(e.key==='r'||e.key==='R') addShape('rect');
+    if(!e.ctrlKey&&!e.metaKey){
+      const el=state.elements.find(e2=>e2.id===state.currentId);
+      if(el&&!el.locked){
+        const step=e.shiftKey?10:1;
+        if(e.key==='ArrowLeft'){e.preventDefault();el.x-=step;}
+        if(e.key==='ArrowRight'){e.preventDefault();el.x+=step;}
+        if(e.key==='ArrowUp'){e.preventDefault();el.y-=step;}
+        if(e.key==='ArrowDown'){e.preventDefault();el.y+=step;}
+        redraw();
+      }
+    }
+  });
+}
+
+function setTool(t){
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tool-'+t)?.classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
 }
 </script>
 </body>
