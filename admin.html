@@ -6,17 +6,17 @@
 <title>Admin — UA Flyers</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --azul:#00528F; --teal:#008091; --oscuro:#002447;
-  --cyan:#00C4DF; --fucsia:#ff436e;
-  --bg:#f0f4f8; --white:#fff;
-  --gl:#e8edf3; --gm:#b0bec8; --gd:#4a5568; --text:#1a2332;
-  --rs:8px; --sh:0 4px 20px rgba(0,36,71,.1); --shl:0 8px 40px rgba(0,36,71,.15);
+:root{
+  --azul:#00528F;--teal:#008091;--oscuro:#002447;
+  --cyan:#00C4DF;--fucsia:#ff436e;
+  --bg:#f0f4f8;--white:#fff;
+  --gl:#e8edf3;--gm:#b0bec8;--gd:#4a5568;--text:#1a2332;
+  --rs:8px;--shl:0 8px 40px rgba(0,36,71,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
 
-/* PIN */
+/* ── PIN ── */
 #pin-gate{position:fixed;inset:0;background:linear-gradient(135deg,var(--oscuro),var(--azul) 60%,var(--teal));display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px;}
 .pin-card{background:var(--white);border-radius:20px;padding:48px 40px;width:100%;max-width:360px;box-shadow:var(--shl);text-align:center;}
 .pin-logo{width:54px;height:54px;background:linear-gradient(135deg,var(--azul),var(--teal));border-radius:14px;display:flex;align-items:center;justify-content:center;color:white;font-size:20px;font-weight:800;margin:0 auto 22px;}
@@ -28,87 +28,89 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);hei
 .btn-pin{width:100%;padding:13px;background:linear-gradient(135deg,var(--azul),var(--teal));color:white;border:none;border-radius:var(--rs);font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;cursor:pointer;}
 .btn-pin:hover{opacity:.9;}
 
-/* TOPBAR */
-.topbar{background:var(--oscuro);padding:0 16px;height:52px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
-.topbar-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--azul),var(--teal));border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:800;flex-shrink:0;}
-.badge-admin{background:rgba(255,67,110,.2);color:#ff8fa8;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;flex-shrink:0;}
-.topbar-spacer{flex:1;}
-#design-name-input{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;padding:5px 12px;outline:none;width:200px;}
-#design-name-input:focus{border-color:var(--cyan);}
-#design-name-input::placeholder{color:rgba(255,255,255,.4);}
-.tb-btn{background:rgba(255,255,255,.1);border:none;color:white;border-radius:6px;padding:5px 11px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:5px;white-space:nowrap;flex-shrink:0;}
-.tb-btn:hover{background:rgba(255,255,255,.2);}
-.tb-btn.green{background:rgba(0,196,90,.2);color:#7fffd4;}
-.tb-btn.green:hover{background:rgba(0,196,90,.35);}
-.tb-btn.red{background:rgba(255,67,110,.18);color:#ff8fa8;}
-.tb-btn.red:hover{background:rgba(255,67,110,.3);}
-.topbar-sep{width:1px;height:20px;background:rgba(255,255,255,.15);flex-shrink:0;}
+/* ── TOPBAR ── */
+.topbar{background:var(--oscuro);padding:0 16px;height:52px;display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.tlogo{width:30px;height:30px;background:linear-gradient(135deg,var(--azul),var(--teal));border-radius:7px;display:flex;align-items:center;justify-content:center;color:white;font-size:11px;font-weight:800;}
+.badmin{background:rgba(255,67,110,.2);color:#ff8fa8;font-size:9px;font-weight:700;padding:2px 8px;border-radius:8px;}
+.tsp{flex:1;}
+#dname{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:12px;font-weight:500;padding:5px 12px;outline:none;width:200px;}
+#dname:focus{border-color:var(--cyan);}
+#dname::placeholder{color:rgba(255,255,255,.4);}
+#dcat{background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:11px;padding:5px 10px;outline:none;}
+#dcat option{background:#1a2332;color:white;}
+.tsep{width:1px;height:20px;background:rgba(255,255,255,.15);}
+.tbtn{background:rgba(255,255,255,.1);border:none;color:white;border-radius:6px;padding:5px 11px;font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:background .15s;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+.tbtn:hover{background:rgba(255,255,255,.2);}
+.tbtn.g{background:rgba(0,196,90,.2);color:#7fffd4;}
+.tbtn.g:hover{background:rgba(0,196,90,.35);}
+.tbtn.r{background:rgba(255,67,110,.18);color:#ff8fa8;}
+.tbtn.r:hover{background:rgba(255,67,110,.3);}
 
-/* LAYOUT */
+/* ── LAYOUT ── */
 .main{display:flex;flex:1;overflow:hidden;}
 
-/* TOOLBAR LEFT */
-.toolbar{width:48px;background:var(--white);border-right:1px solid var(--gl);display:flex;flex-direction:column;align-items:center;padding:8px 0;gap:3px;flex-shrink:0;}
-.tool-btn{width:36px;height:36px;border:none;background:none;border-radius:var(--rs);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--gd);transition:all .15s;position:relative;}
-.tool-btn:hover{background:var(--gl);color:var(--azul);}
-.tool-btn.active{background:rgba(0,82,143,.1);color:var(--azul);}
-.tool-sep{width:26px;height:1px;background:var(--gl);margin:3px 0;}
-.tool-btn[title]:hover::after{content:attr(title);position:absolute;left:44px;top:50%;transform:translateY(-50%);background:var(--oscuro);color:white;padding:4px 8px;border-radius:5px;font-size:10px;white-space:nowrap;z-index:100;pointer-events:none;}
+/* ── CANVAS AREA ── */
+.canvas-area{flex:1;background:#1e2030;display:flex;align-items:center;justify-content:center;overflow:auto;padding:32px;position:relative;}
+#editor-svg-wrap{position:relative;line-height:0;box-shadow:0 12px 60px rgba(0,0,0,.6);}
+#editor-svg-wrap svg{display:block;}
 
-/* CANVAS AREA */
-.canvas-area{flex:1;background:#23232f;display:flex;align-items:center;justify-content:center;overflow:auto;position:relative;}
-.canvas-wrap{position:relative;line-height:0;}
-#main-canvas{display:block;box-shadow:0 8px 50px rgba(0,0,0,.5);cursor:crosshair;}
-#main-canvas.mode-select{cursor:default;}
+/* selection overlay canvas */
+#sel-canvas{position:absolute;top:0;left:0;pointer-events:none;}
 
-/* RIGHT PANEL */
-.rpanel{width:268px;background:var(--white);border-left:1px solid var(--gl);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+/* ── RIGHT PANEL ── */
+.rpanel{width:272px;background:var(--white);border-left:1px solid var(--gl);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
 .rtabs{display:flex;border-bottom:1px solid var(--gl);}
 .rtab{flex:1;padding:9px 4px;border:none;background:none;font-family:'Poppins',sans-serif;font-size:11px;font-weight:500;color:var(--gd);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
 .rtab.active{color:var(--azul);border-bottom-color:var(--azul);font-weight:600;}
 .rbody{flex:1;overflow-y:auto;padding:14px;}
 
+/* IMPORT */
+.drop-zone{border:2.5px dashed var(--gl);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;margin-bottom:10px;}
+.drop-zone:hover,.drop-zone.drag{border-color:var(--azul);background:rgba(0,82,143,.03);}
+.drop-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.drop-zone-icon{color:var(--gm);margin-bottom:8px;}
+.drop-zone-title{font-size:13px;font-weight:600;color:var(--oscuro);margin-bottom:3px;}
+.drop-zone-sub{font-size:11px;color:var(--gd);}
+.file-info{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,82,143,.06);border-radius:6px;font-size:11px;color:var(--azul);font-weight:500;margin-bottom:10px;}
+
+/* LAYER LIST */
+.psec{font-size:9px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;margin-top:2px;}
+.hint{font-size:10px;color:var(--gm);line-height:1.5;margin-bottom:10px;}
+.layer-item{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:7px;cursor:pointer;border:1.5px solid transparent;transition:all .1s;margin-bottom:2px;}
+.layer-item:hover{background:var(--bg);}
+.layer-item.sel{background:rgba(0,82,143,.07);border-color:rgba(0,82,143,.2);}
+.layer-color{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+.layer-name{flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lbtn{background:none;border:none;cursor:pointer;padding:2px 3px;border-radius:3px;display:flex;color:var(--gm);transition:all .15s;}
+.lbtn:hover{color:var(--azul);}
+.lbtn.lock-on{color:var(--fucsia);}
+.lbtn.hide-on{opacity:.3;}
+.layer-empty{text-align:center;padding:24px 8px;color:var(--gm);font-size:11px;line-height:1.6;}
+
 /* PROPS */
-.psec-title{font-size:9px;font-weight:700;color:var(--gm);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;}
 .prop-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;}
-.prop-label{font-size:10px;font-weight:600;color:var(--gd);min-width:48px;flex-shrink:0;}
-.prop-input{flex:1;padding:5px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;background:white;}
+.prop-label{font-size:10px;font-weight:600;color:var(--gd);min-width:50px;flex-shrink:0;}
+.prop-input{flex:1;padding:5px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;background:white;transition:border-color .2s;}
 .prop-input:focus{border-color:var(--azul);}
 .prop-input[type=color]{padding:1px 2px;height:27px;cursor:pointer;}
-.prop-input[type=range]{padding:0;accent-color:var(--azul);}
-.prop-select{flex:1;padding:5px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;background:white;}
-.prop-ta{width:100%;padding:6px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;resize:vertical;min-height:54px;transition:border-color .2s;}
+.prop-ta{width:100%;padding:6px 8px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;resize:vertical;min-height:56px;margin-bottom:8px;}
 .prop-ta:focus{border-color:var(--azul);}
 .prop-2col{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:9px;}
 .prop-2col .prop-input{width:100%;}
 .sep{height:1px;background:var(--gl);margin:8px 0;}
-.prop-hint{font-size:10px;color:var(--gm);margin-bottom:8px;line-height:1.4;}
-
 .lock-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;border:1.5px solid var(--gl);cursor:pointer;transition:all .2s;margin-bottom:10px;}
 .lock-row.locked{border-color:var(--fucsia);background:rgba(255,67,110,.04);}
-.lock-row .lock-icon{font-size:16px;}
-.lock-row .lock-text{flex:1;font-size:11px;font-weight:600;color:var(--gd);}
-.lock-row.locked .lock-text{color:var(--fucsia);}
+.lock-row .lico{font-size:16px;}
+.lock-row .ltxt{flex:1;font-size:11px;font-weight:600;color:var(--gd);}
+.lock-row.locked .ltxt{color:var(--fucsia);}
+.label-row{margin-bottom:10px;}
+.label-input{width:100%;padding:6px 10px;border:1.5px solid var(--gl);border-radius:6px;font-family:'Poppins',sans-serif;font-size:12px;color:var(--text);outline:none;transition:border-color .2s;}
+.label-input:focus{border-color:var(--azul);}
 
-.label-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
-
-/* LAYERS */
-.layer-item{display:flex;align-items:center;gap:7px;padding:6px 8px;border-radius:7px;cursor:pointer;border:1.5px solid transparent;transition:all .1s;}
-.layer-item:hover{background:var(--bg);}
-.layer-item.selected{background:rgba(0,82,143,.07);border-color:rgba(0,82,143,.2);}
-.layer-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:white;flex-shrink:0;}
-.layer-name{flex:1;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.lbtn{background:none;border:none;cursor:pointer;padding:2px;border-radius:3px;display:flex;opacity:.5;transition:all .15s;}
-.lbtn:hover{opacity:1;}
-.lbtn.locked-on{opacity:1;color:var(--fucsia);}
-.lbtn.hidden-on{opacity:.25;}
-.layer-empty{text-align:center;padding:24px 8px;color:var(--gm);font-size:11px;}
-
-/* DESIGNS */
+/* DESIGNS LIST */
 .ditem{display:flex;align-items:center;gap:8px;padding:9px;border-radius:8px;border:1.5px solid var(--gl);margin-bottom:7px;transition:all .15s;}
 .ditem:hover{border-color:var(--azul);}
 .dthumb{width:32px;height:48px;border-radius:5px;object-fit:cover;background:var(--gl);flex-shrink:0;}
-.dthumb-ph{width:32px;height:48px;border-radius:5px;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gm);flex-shrink:0;}
 .dinfo{flex:1;min-width:0;}
 .dname{font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .dcat{font-size:9px;color:var(--gm);}
@@ -123,36 +125,12 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);hei
 .btn-pri:hover{opacity:.9;}
 .btn-sec{background:var(--gl);color:var(--gd);}
 .btn-sec:hover{background:#d8e2ec;}
-.btn-danger{background:rgba(255,67,110,.1);color:var(--fucsia);border:1px solid rgba(255,67,110,.2);}
-.btn-danger:hover{background:rgba(255,67,110,.18);}
-
-/* UPLOAD ZONE */
-.upload-zone{border:2.5px dashed var(--gl);border-radius:10px;padding:28px 16px;text-align:center;cursor:pointer;transition:all .2s;position:relative;margin-bottom:12px;}
-.upload-zone:hover,.upload-zone.drag{border-color:var(--azul);background:rgba(0,82,143,.03);}
-.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-.upload-zone-title{font-size:13px;font-weight:600;color:var(--oscuro);margin-top:8px;}
-.upload-zone-sub{font-size:11px;color:var(--gd);margin-top:4px;}
-.upload-file-info{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,82,143,.06);border-radius:6px;font-size:11px;color:var(--azul);font-weight:500;margin-bottom:10px;}
 
 .spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
+.spinner-dark{width:14px;height:14px;border:2px solid rgba(0,82,143,.2);border-top-color:var(--azul);border-radius:50%;animation:spin .7s linear infinite;display:inline-block;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111827;color:white;padding:9px 18px;border-radius:9px;font-size:12px;font-weight:500;z-index:9998;opacity:0;transition:opacity .3s;pointer-events:none;}
 .toast.show{opacity:1;}
-
-/* IMPORT MODAL */
-.modal-bg{position:fixed;inset:0;background:rgba(0,36,71,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
-.modal-bg.active{display:flex;}
-.modal-box{background:white;border-radius:18px;padding:32px;width:100%;max-width:440px;box-shadow:var(--shl);}
-.modal-box h3{font-size:16px;font-weight:700;color:var(--oscuro);margin-bottom:6px;}
-.modal-box p{font-size:12px;color:var(--gd);margin-bottom:20px;line-height:1.5;}
-
-/* page picker */
-.page-grid{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
-.page-thumb-btn{border:2px solid var(--gl);border-radius:7px;padding:4px;cursor:pointer;transition:all .15s;background:none;}
-.page-thumb-btn.selected{border-color:var(--azul);}
-.page-thumb-btn img{display:block;width:80px;height:auto;border-radius:4px;}
-.page-thumb-btn span{display:block;text-align:center;font-size:9px;color:var(--gd);margin-top:3px;}
-
 ::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:var(--gl);border-radius:2px;}
 </style>
 </head>
@@ -172,27 +150,25 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);hei
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="topbar-logo">ua</div>
-  <span class="badge-admin">ADMIN</span>
-  <div class="topbar-spacer"></div>
-  <input type="text" id="design-name-input" placeholder="Nombre del diseño…">
-  <select id="design-cat" style="background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.2);border-radius:7px;color:white;font-family:'Poppins',sans-serif;font-size:11px;padding:5px 10px;outline:none;">
-    <option>General</option><option>Europa</option><option>América</option><option>Mundo</option><option>Corporativo</option>
-  </select>
-  <div class="topbar-sep"></div>
-  <button class="tb-btn" onclick="undo()">
+  <div class="tlogo">ua</div>
+  <span class="badmin">ADMIN</span>
+  <div class="tsp"></div>
+  <input type="text" id="dname" placeholder="Nombre del diseño…">
+  <select id="dcat"><option>General</option><option>Europa</option><option>América</option><option>Mundo</option><option>Corporativo</option></select>
+  <div class="tsep"></div>
+  <button class="tbtn" onclick="undo()">
     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M3 13A9 9 0 1 0 5.7 6.7L3 7"/></svg>Z
   </button>
-  <button class="tb-btn" onclick="redo()">
+  <button class="tbtn" onclick="redo()">
     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 7v6h-6"/><path d="M21 13A9 9 0 1 1 18.3 6.7L21 7"/></svg>Y
   </button>
-  <div class="topbar-sep"></div>
-  <button class="tb-btn green" id="btn-save" onclick="saveDesign()">
+  <div class="tsep"></div>
+  <button class="tbtn g" id="btn-save" onclick="saveDesign()">
     <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
     Guardar y publicar
   </button>
-  <button class="tb-btn" onclick="newDesign()">+ Nuevo</button>
-  <button class="tb-btn red" onclick="lockAdmin()">
+  <button class="tbtn" onclick="newDesign()">+ Nuevo</button>
+  <button class="tbtn r" onclick="lockAdmin()">
     <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
   </button>
 </div>
@@ -200,113 +176,78 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);hei
 <!-- MAIN -->
 <div class="main">
 
-  <!-- TOOLBAR -->
-  <div class="toolbar">
-    <button class="tool-btn active" id="tool-select" onclick="setActiveTool('select')" title="Seleccionar">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 3l14 9-7 1-4 7z"/></svg>
-    </button>
-    <div class="tool-sep"></div>
-    <button class="tool-btn" id="tool-text" onclick="addElement('text')" title="Agregar texto">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
-    </button>
-    <button class="tool-btn" id="tool-rect" onclick="addElement('rect')" title="Rectángulo">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
-    </button>
-    <button class="tool-btn" id="tool-ellipse" onclick="addElement('ellipse')" title="Elipse">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="10" ry="7"/></svg>
-    </button>
-    <button class="tool-btn" id="tool-line" onclick="addElement('line')" title="Línea">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="4"/></svg>
-    </button>
-    <div class="tool-sep"></div>
-    <button class="tool-btn" onclick="triggerImgUpload()" title="Subir imagen / logo">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    </button>
-    <button class="tool-btn" onclick="addElement('qr')" title="Código QR">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="3" height="3"/></svg>
-    </button>
-    <div class="tool-sep"></div>
-    <button class="tool-btn" onclick="deleteSelected()" title="Eliminar seleccionado">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
-    </button>
-  </div>
-
   <!-- CANVAS -->
   <div class="canvas-area" id="canvas-area">
-    <div class="canvas-wrap" id="canvas-wrap">
-      <canvas id="main-canvas" class="mode-select"></canvas>
+    <div id="editor-svg-wrap">
+      <!-- SVG injected here -->
+      <canvas id="sel-canvas"></canvas>
     </div>
   </div>
 
   <!-- RIGHT PANEL -->
   <div class="rpanel">
     <div class="rtabs">
-      <button class="rtab active" onclick="switchRTab('props',this)">Propiedades</button>
-      <button class="rtab" onclick="switchRTab('layers',this)">Capas</button>
-      <button class="rtab" onclick="switchRTab('designs',this)">Diseños</button>
+      <button class="rtab active" onclick="switchTab('import',this)">Importar</button>
+      <button class="rtab" onclick="switchTab('layers',this)">Capas</button>
+      <button class="rtab" onclick="switchTab('props',this)">Props</button>
+      <button class="rtab" onclick="switchTab('designs',this)">Diseños</button>
     </div>
 
-    <!-- PROPS TAB -->
-    <div class="rbody" id="rt-props">
-
-      <!-- PDF IMPORT -->
-      <div class="psec-title">Diseño base (PDF / AI)</div>
-      <div class="upload-zone" id="pdf-zone"
+    <!-- IMPORT TAB -->
+    <div class="rbody" id="tab-import">
+      <p class="psec">Subir diseño SVG</p>
+      <div class="drop-zone" id="drop-zone"
         ondragover="event.preventDefault();this.classList.add('drag')"
         ondragleave="this.classList.remove('drag')"
-        ondrop="handlePdfDrop(event)">
-        <input type="file" id="pdf-input" accept=".pdf,.ai,application/pdf" onchange="handlePdfSelect(event)">
-        <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24" style="color:var(--gm)"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        <div class="upload-zone-title">Subir PDF o AI</div>
-        <div class="upload-zone-sub">Arrastrá o hacé click · El diseño se importa como base fiel</div>
+        ondrop="handleDrop(event)">
+        <input type="file" id="svg-input" accept=".svg,image/svg+xml" onchange="handleSVGSelect(event)">
+        <div class="drop-zone-icon">
+          <svg width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.3" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        </div>
+        <div class="drop-zone-title">Subir archivo SVG</div>
+        <div class="drop-zone-sub">Exportá el AI como SVG desde Illustrator<br>y arrastralo acá</div>
       </div>
-      <div id="pdf-file-info" style="display:none"></div>
+      <div id="svg-file-info" style="display:none"></div>
 
       <div class="sep"></div>
-
-      <!-- CANVAS SIZE -->
-      <div class="psec-title">Formato del canvas</div>
-      <div style="display:flex;gap:6px;margin-bottom:12px;">
-        <button class="btn-blk btn-sec" style="flex:1;padding:7px;font-size:10px;" onclick="setCanvasSize(1080,1920,this)" id="fmt-story">Story<br><span style="font-weight:400;font-size:9px;opacity:.7">1080×1920</span></button>
-        <button class="btn-blk btn-sec" style="flex:1;padding:7px;font-size:10px;" onclick="setCanvasSize(1080,1350,this)" id="fmt-flyer">Flyer<br><span style="font-weight:400;font-size:9px;opacity:.7">1080×1350</span></button>
-        <button class="btn-blk btn-sec" style="flex:1;padding:7px;font-size:10px;" onclick="setCanvasSize(1080,1080,this)" id="fmt-sq">Cuad.<br><span style="font-weight:400;font-size:9px;opacity:.7">1080×1080</span></button>
-      </div>
-
-      <div class="sep"></div>
-
-      <!-- ELEMENT PROPS -->
-      <div id="el-props">
-        <p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0;">Seleccioná un elemento<br>para editar sus propiedades</p>
+      <p class="psec">Cómo exportar desde Illustrator</p>
+      <div style="font-size:10px;color:var(--gd);line-height:1.7;background:var(--bg);border-radius:8px;padding:10px 12px;">
+        1. Archivo → Exportar como…<br>
+        2. Formato: <strong>SVG</strong><br>
+        3. En opciones SVG:<br>
+        &nbsp;&nbsp;• Fuentes: <strong>SVG</strong> (no convertir a outlines)<br>
+        &nbsp;&nbsp;• Imágenes: <strong>Incrustar</strong><br>
+        &nbsp;&nbsp;• CSS: <strong>Atributos de presentación</strong><br>
+        4. Guardar y subir acá
       </div>
     </div>
 
     <!-- LAYERS TAB -->
-    <div class="rbody" id="rt-layers" style="display:none">
-      <p class="prop-hint">🔒 Los elementos bloqueados NO son editables por el comercial.<br>🔓 Los desbloqueados sí, con el label como nombre del campo.</p>
-      <div id="layers-list"><div class="layer-empty">Aún no hay elementos.</div></div>
+    <div class="rbody" id="tab-layers" style="display:none">
+      <p class="hint">🔒 Bloqueado = comercial NO puede editar.<br>🔓 Desbloqueado = aparece como campo editable.<br>La <strong>etiqueta</strong> es el nombre del campo que ve el comercial.</p>
+      <div id="layers-list"><div class="layer-empty">Importá un SVG para ver sus capas aquí.</div></div>
+    </div>
+
+    <!-- PROPS TAB -->
+    <div class="rbody" id="tab-props" style="display:none">
+      <div id="props-content"><p style="font-size:11px;color:var(--gm);text-align:center;padding:20px 0">Seleccioná un elemento para editar sus propiedades</p></div>
     </div>
 
     <!-- DESIGNS TAB -->
-    <div class="rbody" id="rt-designs" style="display:none">
+    <div class="rbody" id="tab-designs" style="display:none">
       <button class="btn-blk btn-pri" onclick="saveDesign()" style="margin-bottom:14px">
         <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg>
         Guardar diseño actual
       </button>
-      <div id="designs-list"><p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0;">Cargando…</p></div>
+      <div id="designs-list"><p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">Cargando…</p></div>
     </div>
   </div>
 </div>
 
-<!-- hidden inputs -->
-<input type="file" id="img-input" accept="image/*" style="display:none" onchange="handleImgSelect(event)">
 <div class="toast" id="toast"></div>
 
-<!-- PDF.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
 <script>
 // ── CONFIG ──
@@ -316,659 +257,667 @@ const FB_CONFIG = {
   messagingSenderId:"TU_SENDER_ID", appId:"TU_APP_ID"
 };
 const ADMIN_PIN = "4896";
-
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const DISPLAY_SCALE = 0.45; // how big SVG appears in editor
 
 firebase.initializeApp(FB_CONFIG);
 const db = firebase.firestore();
-const storage = firebase.storage();
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  PIN
-// ═══════════════════════════════════════════════════════
-function checkPin() {
-  if (document.getElementById('pin-input').value === ADMIN_PIN) {
-    document.getElementById('pin-gate').style.display = 'none';
+// ═══════════════════════════════════════
+function checkPin(){
+  if(document.getElementById('pin-input').value===ADMIN_PIN){
+    document.getElementById('pin-gate').style.display='none';
     init();
   } else {
-    document.getElementById('pin-err').textContent = 'PIN incorrecto';
-    document.getElementById('pin-input').value = '';
+    document.getElementById('pin-err').textContent='PIN incorrecto';
+    document.getElementById('pin-input').value='';
     document.getElementById('pin-input').focus();
   }
 }
-function lockAdmin() {
-  document.getElementById('pin-gate').style.display = 'flex';
-  document.getElementById('pin-input').value = '';
-  document.getElementById('pin-err').textContent = '';
+function lockAdmin(){
+  document.getElementById('pin-gate').style.display='flex';
+  document.getElementById('pin-input').value='';
+  document.getElementById('pin-err').textContent='';
 }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  STATE
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 let S = {
-  cw: 1080, ch: 1920,           // canvas dimensions
-  bgData: null,                  // rendered PDF page as data URL
-  elements: [],
+  svgSource: null,     // original SVG string
+  svgW: 0, svgH: 0,   // viewBox dimensions
+  layers: [],          // parsed layer objects
   selId: null,
-  editingId: null,               // Firestore doc ID currently editing
+  editingId: null,
 };
+let undoStack=[], redoStack=[];
+let dragging=false, resizing=false;
+let dragStartX=0, dragStartY=0, dragElOrigX=0, dragElOrigY=0;
+let resizeHandle='', resizeStartX=0, resizeStartY=0;
+let resizeOrigX=0, resizeOrigY=0, resizeOrigW=0, resizeOrigH=0;
 
-let undoStack = [], redoStack = [];
-let dragging = false, resizing = false, dragOffX = 0, dragOffY = 0, resizeHandle = '';
-let imgCache = {};
-let idCtr = 1;
-
-const canvas = document.getElementById('main-canvas');
-const ctx = canvas.getContext('2d');
-const SCALE = 0.38;
-
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  INIT
-// ═══════════════════════════════════════════════════════
-function init() {
-  setCanvasSize(1080, 1920, document.getElementById('fmt-story'));
-  loadDesigns();
-  bindKeys();
-}
+// ═══════════════════════════════════════
+function init(){ loadDesigns(); bindKeys(); }
 
-// ═══════════════════════════════════════════════════════
-//  CANVAS SIZE
-// ═══════════════════════════════════════════════════════
-function setCanvasSize(w, h, btn) {
-  S.cw = w; S.ch = h;
-  canvas.width = w; canvas.height = h;
-  canvas.style.width  = w * SCALE + 'px';
-  canvas.style.height = h * SCALE + 'px';
-  document.querySelectorAll('[id^=fmt-]').forEach(b => b.classList.remove('btn-pri'));
-  if (btn) btn.classList.add('btn-pri');
-  redraw();
-}
-
-// ═══════════════════════════════════════════════════════
-//  PDF IMPORT
-// ═══════════════════════════════════════════════════════
-function handlePdfDrop(e) {
+// ═══════════════════════════════════════
+//  SVG IMPORT
+// ═══════════════════════════════════════
+function handleDrop(e){
   e.preventDefault();
-  document.getElementById('pdf-zone').classList.remove('drag');
-  const file = e.dataTransfer.files[0];
-  if (file) importPdf(file);
+  document.getElementById('drop-zone').classList.remove('drag');
+  const file=e.dataTransfer.files[0];
+  if(file&&(file.name.endsWith('.svg')||file.type.includes('svg'))) importSVG(file);
+  else showToast('Subí un archivo SVG');
 }
-function handlePdfSelect(e) {
-  const file = e.target.files[0];
-  if (file) importPdf(file);
-  e.target.value = '';
-}
-
-async function importPdf(file) {
-  const info = document.getElementById('pdf-file-info');
-  info.style.display = '';
-  info.innerHTML = `<div class="upload-file-info"><span class="spinner" style="border-top-color:var(--azul);border-color:rgba(0,82,143,.2)"></span> Renderizando ${file.name}…</div>`;
-
-  try {
-    const arrayBuf = await file.arrayBuffer();
-    const pdfDoc   = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
-
-    // If multi-page, render page 1 by default (we could add page picker)
-    const totalPages = pdfDoc.numPages;
-    const page = await pdfDoc.getPage(1);
-    const viewport = page.getViewport({ scale: 1 });
-
-    // Render at 2× for quality
-    const renderScale = Math.max(S.cw / viewport.width, S.ch / viewport.height) * 2;
-    const scaledViewport = page.getViewport({ scale: renderScale });
-
-    const offscreen = document.createElement('canvas');
-    offscreen.width  = scaledViewport.width;
-    offscreen.height = scaledViewport.height;
-    const offCtx = offscreen.getContext('2d');
-
-    await page.render({ canvasContext: offCtx, viewport: scaledViewport }).promise;
-
-    // Crop/fit to canvas dimensions
-    const finalCanvas = document.createElement('canvas');
-    finalCanvas.width  = S.cw;
-    finalCanvas.height = S.ch;
-    const fCtx = finalCanvas.getContext('2d');
-
-    const srcW = offscreen.width, srcH = offscreen.height;
-    const ratio = Math.min(srcW / S.cw, srcH / S.ch);
-    const fitW  = S.cw * ratio, fitH = S.ch * ratio;
-    const sx = (srcW - fitW) / 2, sy = (srcH - fitH) / 2;
-    fCtx.drawImage(offscreen, sx, sy, fitW, fitH, 0, 0, S.cw, S.ch);
-
-    S.bgData = finalCanvas.toDataURL('image/png');
-    imgCache[S.bgData] = null; // force reload
-
-    const mb = (file.size / 1024 / 1024).toFixed(1);
-    info.innerHTML = `<div class="upload-file-info">
-      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--azul)"><polyline points="20 6 9 17 4 12"/></svg>
-      ${file.name} · ${mb} MB${totalPages > 1 ? ` · ${totalPages} págs (importada pág 1)` : ''}
-    </div>`;
-
-    redraw();
-    showToast('✓ PDF importado correctamente');
-  } catch (err) {
-    console.error(err);
-    info.innerHTML = `<div class="upload-file-info" style="color:var(--fucsia)">Error al renderizar el PDF. Asegurate de que sea un PDF válido.</div>`;
-  }
+function handleSVGSelect(e){
+  const file=e.target.files[0];
+  if(file) importSVG(file);
+  e.target.value='';
 }
 
-// ═══════════════════════════════════════════════════════
-//  ELEMENT FACTORY
-// ═══════════════════════════════════════════════════════
-function makeEl(type, extra = {}) {
-  const base = {
-    id: 'el_' + (idCtr++),
-    type,
-    x: Math.round(S.cw * 0.1),
-    y: Math.round(S.ch * 0.1),
-    w: Math.round(S.cw * 0.6),
-    h: 100,
-    locked: false,
-    visible: true,
-    label: type === 'text' ? 'Texto' : type === 'image' ? 'Imagen' : type === 'rect' ? 'Rectángulo' : type === 'ellipse' ? 'Elipse' : type === 'line' ? 'Línea' : 'QR',
+function importSVG(file){
+  const info=document.getElementById('svg-file-info');
+  info.style.display='';
+  info.innerHTML=`<div class="file-info"><span class="spinner-dark"></span> Procesando ${file.name}…</div>`;
+
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try {
+      const svgText=ev.target.result;
+      S.svgSource=svgText;
+      parseSVGIntoLayers(svgText);
+      renderEditor();
+      switchTab('layers', document.querySelectorAll('.rtab')[1]);
+
+      const mb=(file.size/1024/1024).toFixed(2);
+      info.innerHTML=`<div class="file-info">
+        <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--azul)"><polyline points="20 6 9 17 4 12"/></svg>
+        ${file.name} · ${mb} MB · ${S.layers.length} capas detectadas
+      </div>`;
+      showToast(`✓ SVG importado — ${S.layers.length} capas`);
+    } catch(err){
+      console.error(err);
+      info.innerHTML=`<div class="file-info" style="color:var(--fucsia)">Error al procesar el SVG</div>`;
+    }
   };
-  return { ...base, ...extra };
+  reader.readAsText(file);
 }
 
-function addElement(type) {
-  saveUndo();
-  let el;
-  const cx = Math.round(S.cw * 0.15), cy = Math.round(S.ch * 0.1);
+// ═══════════════════════════════════════
+//  SVG PARSER — extract layers
+// ═══════════════════════════════════════
+function parseSVGIntoLayers(svgText){
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(svgText,'image/svg+xml');
+  const svg=doc.querySelector('svg');
+  if(!svg) throw new Error('Invalid SVG');
 
-  if (type === 'text')    el = makeEl('text',    { x:cx, y:cy, w:Math.round(S.cw*.7), h:120, text:'Texto de ejemplo', fontFamily:'Poppins', fontSize:72, fontWeight:'700', color:'#ffffff', align:'left', lineHeight:1.25 });
-  if (type === 'rect')    el = makeEl('rect',    { x:cx, y:cy, w:Math.round(S.cw*.7), h:200, fill:'rgba(0,82,143,0.75)', stroke:'none', strokeW:0, radius:24 });
-  if (type === 'ellipse') el = makeEl('ellipse', { x:cx, y:cy, w:300, h:300, fill:'rgba(0,196,223,0.6)', stroke:'none', strokeW:0 });
-  if (type === 'line')    el = makeEl('line',    { x:cx, y:cy, w:Math.round(S.cw*.7), h:6, fill:'#00C4DF' });
-  if (type === 'qr') {
-    const url = prompt('URL para el QR:', 'https://universal-assistance.com');
-    if (!url) return;
-    el = makeEl('qr', { x:Math.round(S.cw*.65), y:80, w:280, h:280, url });
-  }
-
-  S.elements.push(el);
-  S.selId = el.id;
-  redraw(); updateLayers(); updateElProps();
-}
-
-function triggerImgUpload() { document.getElementById('img-input').click(); }
-function handleImgSelect(e) {
-  const file = e.target.files[0]; if (!file) return;
-  const r = new FileReader();
-  r.onload = ev => {
-    saveUndo();
-    const img = new Image();
-    img.onload = () => {
-      const maxW = Math.round(S.cw * 0.4);
-      const ratio = Math.min(maxW / img.width, maxW / img.height);
-      const w = Math.round(img.width * ratio), h = Math.round(img.height * ratio);
-      const el = makeEl('image', { x: Math.round((S.cw - w) / 2), y: 80, w, h, src: ev.target.result, label:'Imagen / Logo' });
-      S.elements.push(el);
-      S.selId = el.id;
-      imgCache[ev.target.result] = null;
-      redraw(); updateLayers(); updateElProps();
-    };
-    img.src = ev.target.result;
-  };
-  r.readAsDataURL(file);
-  e.target.value = '';
-}
-
-// ═══════════════════════════════════════════════════════
-//  DRAW
-// ═══════════════════════════════════════════════════════
-function getImg(src) {
-  if (imgCache[src] && imgCache[src].complete) return imgCache[src];
-  const img = new Image();
-  img.onload = () => { imgCache[src] = img; redraw(); };
-  img.src = src;
-  imgCache[src] = img;
-  return null;
-}
-
-function redraw() {
-  ctx.clearRect(0, 0, S.cw, S.ch);
-
-  // background
-  if (S.bgData) {
-    const bi = getImg(S.bgData);
-    if (bi) ctx.drawImage(bi, 0, 0, S.cw, S.ch);
-    else { ctx.fillStyle = '#1a2332'; ctx.fillRect(0, 0, S.cw, S.ch); }
+  // get viewBox dimensions
+  const vb=svg.getAttribute('viewBox');
+  if(vb){
+    const parts=vb.trim().split(/[\s,]+/);
+    S.svgW=parseFloat(parts[2])||800;
+    S.svgH=parseFloat(parts[3])||600;
   } else {
-    // default gradient
-    const g = ctx.createLinearGradient(0, 0, S.cw, S.ch);
-    g.addColorStop(0, '#002447'); g.addColorStop(1, '#008091');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, S.cw, S.ch);
-
-    // helper text when empty
-    ctx.fillStyle = 'rgba(255,255,255,.25)';
-    ctx.font = 'bold 36px Poppins,sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText('Subí un PDF o AI como base', S.cw / 2, S.ch / 2);
-    ctx.font = '24px Poppins,sans-serif'; ctx.fillStyle = 'rgba(255,255,255,.15)';
-    ctx.fillText('o empezá a agregar elementos desde la barra izquierda', S.cw / 2, S.ch / 2 + 50);
-    ctx.textAlign = 'left';
+    S.svgW=parseFloat(svg.getAttribute('width'))||800;
+    S.svgH=parseFloat(svg.getAttribute('height'))||600;
   }
 
-  // elements
-  S.elements.forEach(el => {
-    if (!el.visible) return;
-    ctx.save();
-    drawEl(ctx, el);
-    // lock indicator
-    if (el.locked) {
-      ctx.font = 'bold 32px sans-serif'; ctx.textAlign = 'right';
-      ctx.fillText('🔒', el.x + el.w - 4, el.y + 36);
-      ctx.textAlign = 'left';
+  S.layers=[];
+  let idCtr=1;
+
+  // Walk top-level children — each group/layer becomes one layer
+  // Also walk children of <g id="layer…"> groups (Illustrator layers)
+  function extractLayers(parent, depth){
+    Array.from(parent.children).forEach(el=>{
+      const tag=el.tagName.toLowerCase();
+      if(tag==='defs'||tag==='style'||tag==='metadata') return;
+
+      // Get readable name
+      let name = el.getAttribute('inkscape:label')
+               || el.getAttribute('id')
+               || el.getAttribute('data-name')
+               || (el.getAttribute('class')||'').split(' ')[0]
+               || tag + '_' + idCtr;
+
+      // Clean up Illustrator auto-names
+      name = name.replace(/^(g|path|rect|text|image|circle|polygon|polyline|layer)\d*$/i, tag+'_'+idCtr)
+                 .replace(/_x([0-9A-F]{2})_/gi,'').replace(/_/g,' ').trim();
+      if(!name) name = tag+'_'+idCtr;
+
+      // Determine type
+      let type='shape';
+      if(tag==='text'||tag==='tspan'||el.querySelector('text')) type='text';
+      else if(tag==='image') type='image';
+      else if(tag==='g'){
+        // If it's a group with only text inside → text group
+        const texts=el.querySelectorAll('text,tspan');
+        const shapes=el.querySelectorAll('path,rect,circle,ellipse,polygon,polyline,line,image');
+        if(texts.length>0&&shapes.length===0) type='text';
+        else type='group';
+      }
+
+      // Get bounding box (we'll compute this after rendering)
+      const layer={
+        id:'lyr_'+(idCtr++),
+        name: name.substring(0,40),
+        label: name.substring(0,40),  // editable label shown to commercial
+        type,
+        tag,
+        elementId: el.getAttribute('id')||null,
+        locked: true,   // locked by default — admin unlocks what commercial can edit
+        visible: true,
+        // transform overrides (admin can drag/resize)
+        tx:0, ty:0,        // translate offset
+        sx:1, sy:1,        // scale
+        // original SVG string of this element
+        svgHTML: el.outerHTML,
+        // color/text overrides
+        fillOverride: null,
+        textOverride: null,
+        // bounding box (computed after render)
+        bx:0, by:0, bw:0, bh:0,
+      };
+
+      // Extract text content for text layers
+      if(type==='text'){
+        const textEl=el.querySelector('text')||el;
+        layer.textContent=textEl.textContent||'';
+        layer.fillOverride=getElFill(el)||null;
+      }
+
+      // Extract fill for shapes
+      if(type==='shape'||type==='group'){
+        layer.fillOverride=getElFill(el)||null;
+      }
+
+      S.layers.push(layer);
+    });
+  }
+
+  extractLayers(svg, 0);
+  if(!S.layers.length) throw new Error('No layers found');
+}
+
+function getElFill(el){
+  let fill=el.getAttribute('fill')||el.style.fill||'';
+  if(!fill){
+    const child=el.querySelector('[fill]');
+    if(child) fill=child.getAttribute('fill')||'';
+  }
+  return fill&&fill!=='none'&&fill!=='transparent'?fill:null;
+}
+
+// ═══════════════════════════════════════
+//  RENDER EDITOR SVG
+// ═══════════════════════════════════════
+function renderEditor(){
+  const wrap=document.getElementById('editor-svg-wrap');
+  // Remove old SVG
+  const old=wrap.querySelector('svg');
+  if(old) old.remove();
+
+  // Parse fresh
+  const parser=new DOMParser();
+  const doc=parser.parseFromString(S.svgSource,'image/svg+xml');
+  const origSVG=doc.querySelector('svg');
+  if(!origSVG) return;
+
+  // Apply display scale
+  const dispW=Math.round(S.svgW*DISPLAY_SCALE);
+  const dispH=Math.round(S.svgH*DISPLAY_SCALE);
+  origSVG.setAttribute('width', dispW);
+  origSVG.setAttribute('height', dispH);
+  origSVG.style.userSelect='none';
+
+  // Apply layer transforms & overrides
+  S.layers.forEach(layer=>{
+    if(!layer.elementId) return;
+    const el=origSVG.getElementById(layer.elementId);
+    if(!el) return;
+
+    // visibility
+    el.style.display=layer.visible?'':'none';
+
+    // transform
+    if(layer.tx!==0||layer.ty!==0||layer.sx!==1||layer.sy!==1){
+      const existing=el.getAttribute('transform')||'';
+      el.setAttribute('transform',
+        `translate(${layer.tx/DISPLAY_SCALE},${layer.ty/DISPLAY_SCALE}) scale(${layer.sx},${layer.sy}) ${existing}`);
     }
-    // selection
-    if (el.id === S.selId) drawSelection(el);
-    ctx.restore();
+
+    // color override
+    if(layer.fillOverride){
+      el.style.fill=layer.fillOverride;
+      el.querySelectorAll('[fill]').forEach(c=>c.style.fill=layer.fillOverride);
+    }
+
+    // text override
+    if(layer.textOverride!==null&&layer.type==='text'){
+      const textEls=el.querySelectorAll('text,tspan');
+      if(textEls.length){
+        // Replace text content of first text node
+        const first=textEls[0];
+        first.textContent=layer.textOverride;
+      } else if(el.tagName.toLowerCase()==='text'){
+        el.textContent=layer.textOverride;
+      }
+    }
+  });
+
+  // Insert before selection canvas
+  const selCanvas=document.getElementById('sel-canvas');
+  wrap.insertBefore(origSVG, selCanvas);
+
+  // Size wrap
+  wrap.style.width=dispW+'px';
+  wrap.style.height=dispH+'px';
+
+  // Size selection canvas
+  selCanvas.width=dispW;
+  selCanvas.height=dispH;
+  selCanvas.style.width=dispW+'px';
+  selCanvas.style.height=dispH+'px';
+
+  // Compute bounding boxes after a tick (needs layout)
+  setTimeout(()=>{
+    computeBBoxes();
+    drawSelection();
+    updateLayers();
+    updateProps();
+    bindSVGEvents();
+  }, 60);
+}
+
+function computeBBoxes(){
+  const origSVG=document.querySelector('#editor-svg-wrap svg');
+  if(!origSVG) return;
+  const wrapRect=document.getElementById('editor-svg-wrap').getBoundingClientRect();
+
+  S.layers.forEach(layer=>{
+    if(!layer.elementId) return;
+    const el=origSVG.getElementById(layer.elementId);
+    if(!el||el.style.display==='none') return;
+    try{
+      const bbox=el.getBBox();
+      // Convert from SVG coords to display coords
+      layer.bx=Math.round(bbox.x*DISPLAY_SCALE)+layer.tx;
+      layer.by=Math.round(bbox.y*DISPLAY_SCALE)+layer.ty;
+      layer.bw=Math.round(bbox.width*DISPLAY_SCALE*layer.sx);
+      layer.bh=Math.round(bbox.height*DISPLAY_SCALE*layer.sy);
+    } catch(e){}
   });
 }
 
-function drawEl(ctx, el) {
-  if (el.type === 'text') {
-    ctx.font = `${el.fontWeight || '700'} ${el.fontSize || 60}px '${el.fontFamily || 'Poppins'}',sans-serif`;
-    ctx.fillStyle = el.color || '#ffffff';
-    ctx.textAlign = el.align || 'left';
-    const ax = el.align === 'center' ? el.x + el.w / 2 : el.align === 'right' ? el.x + el.w : el.x;
-    const lh = (el.fontSize || 60) * (el.lineHeight || 1.25);
-    wrapText(ctx, el.text || '', ax, el.y + (el.fontSize || 60), el.w, lh);
-  } else if (el.type === 'rect') {
-    ctx.fillStyle = el.fill || 'transparent';
-    if (el.radius > 0) { rrPath(ctx, el.x, el.y, el.w, el.h, el.radius); ctx.fill(); }
-    else ctx.fillRect(el.x, el.y, el.w, el.h);
-    if (el.stroke && el.stroke !== 'none' && el.strokeW > 0) {
-      ctx.strokeStyle = el.stroke; ctx.lineWidth = el.strokeW;
-      if (el.radius > 0) { rrPath(ctx, el.x, el.y, el.w, el.h, el.radius); ctx.stroke(); }
-      else ctx.strokeRect(el.x, el.y, el.w, el.h);
-    }
-  } else if (el.type === 'ellipse') {
-    ctx.fillStyle = el.fill || 'transparent';
-    ctx.beginPath();
-    ctx.ellipse(el.x + el.w / 2, el.y + el.h / 2, el.w / 2, el.h / 2, 0, 0, Math.PI * 2);
-    ctx.fill();
-    if (el.stroke && el.stroke !== 'none' && el.strokeW > 0) {
-      ctx.strokeStyle = el.stroke; ctx.lineWidth = el.strokeW;
-      ctx.stroke();
-    }
-  } else if (el.type === 'line') {
-    ctx.fillStyle = el.fill || '#ffffff';
-    ctx.fillRect(el.x, el.y, el.w, el.h);
-  } else if (el.type === 'image') {
-    if (el.src) {
-      const img = getImg(el.src);
-      if (img) ctx.drawImage(img, el.x, el.y, el.w, el.h);
-    }
-  } else if (el.type === 'qr') {
-    drawQrVisual(ctx, el);
-  }
-}
+// ═══════════════════════════════════════
+//  SELECTION CANVAS
+// ═══════════════════════════════════════
+function drawSelection(){
+  const canvas=document.getElementById('sel-canvas');
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-function drawSelection(el) {
-  ctx.strokeStyle = '#00C4DF'; ctx.lineWidth = 2;
-  ctx.setLineDash([8, 4]);
-  ctx.strokeRect(el.x - 2, el.y - 2, el.w + 4, el.h + 4);
+  const sel=S.layers.find(l=>l.id===S.selId);
+  if(!sel||sel.bw===0) return;
+
+  // dashed border
+  ctx.strokeStyle='#00C4DF'; ctx.lineWidth=2; ctx.setLineDash([7,4]);
+  ctx.strokeRect(sel.bx-2, sel.by-2, sel.bw+4, sel.bh+4);
   ctx.setLineDash([]);
-  const hs = 10;
-  getHandles(el).forEach(([hx, hy]) => {
-    ctx.fillStyle = '#00C4DF'; ctx.fillRect(hx - hs / 2, hy - hs / 2, hs, hs);
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5;
-    ctx.strokeRect(hx - hs / 2, hy - hs / 2, hs, hs);
+
+  // handles
+  const hs=10;
+  getHandlePositions(sel).forEach(([hx,hy])=>{
+    ctx.fillStyle='#00C4DF'; ctx.fillRect(hx-hs/2, hy-hs/2, hs, hs);
+    ctx.strokeStyle='#fff'; ctx.lineWidth=1.5;
+    ctx.strokeRect(hx-hs/2, hy-hs/2, hs, hs);
   });
-}
 
-function getHandles(el) {
-  const { x, y, w, h } = el;
-  return [
-    [x, y], [x + w / 2, y], [x + w, y],
-    [x, y + h / 2], [x + w, y + h / 2],
-    [x, y + h], [x + w / 2, y + h], [x + w, y + h]
-  ];
-}
-
-function drawQrVisual(ctx, el) {
-  ctx.fillStyle = 'white'; ctx.fillRect(el.x, el.y, el.w, el.h);
-  ctx.strokeStyle = '#002447'; ctx.lineWidth = 4; ctx.strokeRect(el.x, el.y, el.w, el.h);
-  const cell = Math.floor(el.w / 7);
-  ctx.fillStyle = '#002447';
-  [[0,0],[4,0],[0,4],[5,5],[5,6],[6,5],[6,6],[2,2],[3,3],[4,4],[1,1],[4,1],[1,4],[2,4],[4,2]].forEach(([c,r]) => {
-    ctx.fillRect(el.x + c * cell + 2, el.y + r * cell + 2, cell - 1, cell - 1);
-  });
-  ctx.fillStyle = 'rgba(0,0,0,.5)'; ctx.font = 'bold 20px Poppins,sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText(el.url || 'QR', el.x + el.w / 2, el.y + el.h + 26);
-  ctx.textAlign = 'left';
-}
-
-function wrapText(ctx, text, x, y, maxW, lh) {
-  const words = text.split(' '); let line = '', cy = y;
-  for (let i = 0; i < words.length; i++) {
-    const test = line + words[i] + ' ';
-    if (ctx.measureText(test).width > maxW && i > 0) { ctx.fillText(line.trim(), x, cy); line = words[i] + ' '; cy += lh; }
-    else line = test;
+  // lock badge
+  if(sel.locked){
+    ctx.font='bold 20px sans-serif'; ctx.textAlign='right';
+    ctx.fillText('🔒', sel.bx+sel.bw-2, sel.by+22);
+    ctx.textAlign='left';
   }
-  ctx.fillText(line.trim(), x, cy);
-}
-function rrPath(ctx, x, y, w, h, r) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-  ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
-  ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
 }
 
-// ═══════════════════════════════════════════════════════
-//  INTERACTION
-// ═══════════════════════════════════════════════════════
-function cs(e) { // canvas coords
-  const rect = canvas.getBoundingClientRect();
-  return { x: (e.clientX - rect.left) / SCALE, y: (e.clientY - rect.top) / SCALE };
+function getHandlePositions(l){
+  const {bx:x,by:y,bw:w,bh:h}=l;
+  return [[x,y],[x+w/2,y],[x+w,y],[x,y+h/2],[x+w,y+h/2],[x,y+h],[x+w/2,y+h],[x+w,y+h]];
 }
 
-function hitEl(x, y) {
-  for (let i = S.elements.length - 1; i >= 0; i--) {
-    const el = S.elements[i];
-    if (!el.visible) continue;
-    if (x >= el.x && x <= el.x + el.w && y >= el.y && y <= el.y + el.h) return el;
-  }
-  return null;
-}
-
-function hitHandle(el, x, y) {
-  if (!el) return '';
-  const handles = { nw:[el.x,el.y], n:[el.x+el.w/2,el.y], ne:[el.x+el.w,el.y], w:[el.x,el.y+el.h/2], e:[el.x+el.w,el.y+el.h/2], sw:[el.x,el.y+el.h], s:[el.x+el.w/2,el.y+el.h], se:[el.x+el.w,el.y+el.h] };
-  for (const [h, [hx, hy]] of Object.entries(handles)) {
-    if (Math.abs(x - hx) < 8 && Math.abs(y - hy) < 8) return h;
+function hitHandle(layer, mx, my){
+  const positions=getHandlePositions(layer);
+  const names=['nw','n','ne','w','e','sw','s','se'];
+  for(let i=0;i<positions.length;i++){
+    const [hx,hy]=positions[i];
+    if(Math.abs(mx-hx)<8&&Math.abs(my-hy)<8) return names[i];
   }
   return '';
 }
 
-canvas.addEventListener('mousedown', e => {
-  const { x, y } = cs(e);
-  const sel = S.elements.find(el => el.id === S.selId) || null;
-  const handle = sel ? hitHandle(sel, x, y) : '';
-  if (handle) { saveUndo(); resizing = true; resizeHandle = handle; return; }
-  const hit = hitEl(x, y);
-  if (hit) {
-    if (hit.id !== S.selId) { S.selId = hit.id; updateElProps(); updateLayers(); }
-    if (!hit.locked) { saveUndo(); dragging = true; dragOffX = x - hit.x; dragOffY = y - hit.y; }
-  } else {
-    S.selId = null; updateElProps(); updateLayers();
+function hitLayer(mx,my){
+  for(let i=S.layers.length-1;i>=0;i--){
+    const l=S.layers[i];
+    if(!l.visible||l.bw===0) continue;
+    if(mx>=l.bx&&mx<=l.bx+l.bw&&my>=l.by&&my<=l.by+l.bh) return l;
   }
-  redraw();
-});
+  return null;
+}
 
-canvas.addEventListener('mousemove', e => {
-  const { x, y } = cs(e);
-  if (dragging) {
-    const el = S.elements.find(el => el.id === S.selId);
-    if (el && !el.locked) { el.x = Math.round(x - dragOffX); el.y = Math.round(y - dragOffY); redraw(); }
-  } else if (resizing) {
-    const el = S.elements.find(el => el.id === S.selId);
-    if (el && !el.locked) {
-      const r = resizeHandle;
-      if (r.includes('e')) el.w = Math.max(20, Math.round(x - el.x));
-      if (r.includes('s')) el.h = Math.max(4,  Math.round(y - el.y));
-      if (r.includes('w')) { const re = el.x + el.w; el.x = Math.round(x); el.w = Math.max(20, re - el.x); }
-      if (r.includes('n')) { const be = el.y + el.h; el.y = Math.round(y); el.h = Math.max(4, be - el.y); }
-      redraw();
+// ═══════════════════════════════════════
+//  SVG EVENTS (drag / resize)
+// ═══════════════════════════════════════
+function bindSVGEvents(){
+  const selCanvas=document.getElementById('sel-canvas');
+  selCanvas.style.pointerEvents='all';
+  selCanvas.style.cursor='default';
+
+  selCanvas.onmousedown=e=>{
+    const rect=selCanvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    const sel=S.layers.find(l=>l.id===S.selId)||null;
+
+    // Check handle first
+    if(sel){
+      const handle=hitHandle(sel,mx,my);
+      if(handle&&!sel.locked){
+        saveUndo();
+        resizing=true; resizeHandle=handle;
+        resizeStartX=mx; resizeStartY=my;
+        resizeOrigX=sel.bx; resizeOrigY=sel.by;
+        resizeOrigW=sel.bw; resizeOrigH=sel.bh;
+        return;
+      }
     }
-  } else {
-    const sel = S.elements.find(el => el.id === S.selId);
-    const handle = sel ? hitHandle(sel, x, y) : '';
-    if (handle)          canvas.style.cursor = 'se-resize';
-    else {
-      const hit = hitEl(x, y);
-      canvas.style.cursor = hit ? (hit.locked ? 'not-allowed' : 'move') : 'default';
+
+    // Hit test
+    const hit=hitLayer(mx,my);
+    if(hit){
+      if(hit.id!==S.selId){ S.selId=hit.id; updateLayers(); updateProps(); drawSelection(); }
+      if(!hit.locked){
+        saveUndo();
+        dragging=true;
+        dragStartX=mx; dragStartY=my;
+        dragElOrigX=hit.tx; dragElOrigY=hit.ty;
+      }
+    } else {
+      S.selId=null; drawSelection(); updateLayers(); updateProps();
     }
-  }
-});
+  };
 
-canvas.addEventListener('mouseup', () => { dragging = false; resizing = false; updateElProps(); });
+  selCanvas.onmousemove=e=>{
+    const rect=selCanvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    const sel=S.layers.find(l=>l.id===S.selId)||null;
 
-canvas.addEventListener('dblclick', e => {
-  const { x, y } = cs(e);
-  const hit = hitEl(x, y);
-  if (hit && hit.type === 'text' && !hit.locked) {
-    const nv = prompt('Editar texto:', hit.text || '');
-    if (nv !== null) { saveUndo(); hit.text = nv; redraw(); updateElProps(); }
-  }
-});
+    if(dragging&&sel&&!sel.locked){
+      const dx=mx-dragStartX, dy=my-dragStartY;
+      sel.tx=dragElOrigX+dx;
+      sel.ty=dragElOrigY+dy;
+      applyTransform(sel);
+      computeBBoxes();
+      drawSelection();
+    } else if(resizing&&sel&&!sel.locked){
+      const dx=mx-resizeStartX, dy=my-resizeStartY;
+      const r=resizeHandle;
+      let newX=resizeOrigX, newY=resizeOrigY, newW=resizeOrigW, newH=resizeOrigH;
+      if(r.includes('e')) newW=Math.max(20,resizeOrigW+dx);
+      if(r.includes('s')) newH=Math.max(10,resizeOrigH+dy);
+      if(r.includes('w')){ newX=resizeOrigX+dx; newW=Math.max(20,resizeOrigW-dx); }
+      if(r.includes('n')){ newY=resizeOrigY+dy; newH=Math.max(10,resizeOrigH-dy); }
+      // Convert size change to scale
+      sel.sx=newW/resizeOrigW; sel.sy=newH/resizeOrigH;
+      sel.tx=dragElOrigX+(newX-resizeOrigX);
+      sel.ty=dragElOrigY+(newY-resizeOrigY);
+      applyTransform(sel);
+      computeBBoxes();
+      drawSelection();
+    } else {
+      // cursor
+      if(sel){
+        const h=hitHandle(sel,mx,my);
+        if(h){ selCanvas.style.cursor='se-resize'; return; }
+      }
+      const hit=hitLayer(mx,my);
+      selCanvas.style.cursor=hit?(hit.locked?'not-allowed':'move'):'default';
+    }
+  };
 
-function deleteSelected() {
-  if (!S.selId) return;
-  const el = S.elements.find(el => el.id === S.selId);
-  if (el && el.locked) { showToast('Desbloqueá el elemento primero'); return; }
-  saveUndo();
-  S.elements = S.elements.filter(el => el.id !== S.selId);
-  S.selId = null;
-  redraw(); updateLayers(); updateElProps();
+  selCanvas.onmouseup=()=>{ dragging=false; resizing=false; updateProps(); };
+
+  selCanvas.ondblclick=e=>{
+    const rect=selCanvas.getBoundingClientRect();
+    const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+    const hit=hitLayer(mx,my);
+    if(hit&&hit.type==='text'&&!hit.locked){
+      const nv=prompt(`Editar texto "${hit.label}":`, hit.textOverride!==null?hit.textOverride:hit.textContent||'');
+      if(nv!==null){
+        saveUndo();
+        hit.textOverride=nv;
+        renderEditor();
+      }
+    }
+  };
 }
 
-// ═══════════════════════════════════════════════════════
-//  UNDO / REDO
-// ═══════════════════════════════════════════════════════
-function snap() { return JSON.stringify({ elements: S.elements, bgData: S.bgData, cw: S.cw, ch: S.ch }); }
-function saveUndo() { undoStack.push(snap()); if (undoStack.length > 60) undoStack.shift(); redoStack = []; }
-function undo() {
-  if (!undoStack.length) return;
-  redoStack.push(snap()); const p = JSON.parse(undoStack.pop());
-  S.elements = p.elements; S.bgData = p.bgData;
-  S.selId = null; redraw(); updateLayers(); updateElProps();
-}
-function redo() {
-  if (!redoStack.length) return;
-  undoStack.push(snap()); const n = JSON.parse(redoStack.pop());
-  S.elements = n.elements; S.bgData = n.bgData;
-  S.selId = null; redraw(); updateLayers(); updateElProps();
+function applyTransform(layer){
+  const origSVG=document.querySelector('#editor-svg-wrap svg');
+  if(!origSVG||!layer.elementId) return;
+  const el=origSVG.getElementById(layer.elementId);
+  if(!el) return;
+  // Parse original transform from svgHTML
+  const parser=new DOMParser();
+  const tmpDoc=parser.parseFromString(`<svg>${layer.svgHTML}</svg>`,'image/svg+xml');
+  const tmpEl=tmpDoc.querySelector('*:not(svg)');
+  const origTransform=tmpEl?tmpEl.getAttribute('transform')||'':'';
+  el.setAttribute('transform',
+    `translate(${layer.tx/DISPLAY_SCALE},${layer.ty/DISPLAY_SCALE}) scale(${layer.sx},${layer.sy}) ${origTransform}`);
 }
 
-// ═══════════════════════════════════════════════════════
-//  LAYERS
-// ═══════════════════════════════════════════════════════
-const TYPE_COLORS = { text:'#00528F', rect:'#008091', ellipse:'#008091', line:'#00C4DF', image:'#ff436e', qr:'#002447' };
-const TYPE_ICONS  = { text:'T', rect:'▭', ellipse:'○', line:'—', image:'⬜', qr:'QR' };
+// ═══════════════════════════════════════
+//  LAYERS PANEL
+// ═══════════════════════════════════════
+const TYPE_COLOR={text:'#00528F',image:'#ff436e',group:'#008091',shape:'#b0bec8'};
 
-function updateLayers() {
-  const el = document.getElementById('layers-list');
-  if (!S.elements.length) { el.innerHTML = '<div class="layer-empty">Aún no hay elementos.</div>'; return; }
-  el.innerHTML = [...S.elements].reverse().map(it => `
-    <div class="layer-item ${it.id === S.selId ? 'selected' : ''}" onclick="selectEl('${it.id}')">
-      <div class="layer-icon" style="background:${TYPE_COLORS[it.type]||'#888'}">${TYPE_ICONS[it.type]||'?'}</div>
-      <span class="layer-name">${it.label || it.type}</span>
-      <button class="lbtn ${it.visible ? '' : 'hidden-on'}" onclick="event.stopPropagation();toggleVis('${it.id}')" title="${it.visible?'Ocultar':'Mostrar'}">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>${!it.visible?'<line x1="2" y1="2" x2="22" y2="22"/>':''}</svg>
+function updateLayers(){
+  const el=document.getElementById('layers-list');
+  if(!S.layers.length){ el.innerHTML='<div class="layer-empty">Importá un SVG para ver sus capas aquí.</div>'; return; }
+
+  el.innerHTML=[...S.layers].reverse().map(l=>`
+    <div class="layer-item ${l.id===S.selId?'sel':''}" onclick="selectLayer('${l.id}')">
+      <div class="layer-color" style="background:${TYPE_COLOR[l.type]||'#888'}"></div>
+      <span class="layer-name" title="${l.name}">${l.label||l.name}</span>
+      <button class="lbtn ${!l.visible?'hide-on':''}" onclick="event.stopPropagation();toggleVis('${l.id}')" title="${l.visible?'Ocultar':'Mostrar'}">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>${!l.visible?'<line x1="2" y1="2" x2="22" y2="22"/>':''}</svg>
       </button>
-      <button class="lbtn ${it.locked ? 'locked-on' : ''}" onclick="event.stopPropagation();toggleLock('${it.id}')" title="${it.locked?'Desbloquear (comercial NO puede editar)':'Bloquear (comercial NO puede editar)'}">
-        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="${it.locked?'M7 11V7a5 5 0 0 1 10 0v4':'M7 11V7a5 5 0 0 1 9.9-1'}"/></svg>
+      <button class="lbtn ${l.locked?'lock-on':''}" onclick="event.stopPropagation();toggleLock('${l.id}')" title="${l.locked?'Bloqueado — hacer clic para desbloquear':'Desbloqueado — hacer clic para bloquear'}">
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="${l.locked?'M7 11V7a5 5 0 0 1 10 0v4':'M7 11V7a5 5 0 0 1 9.9-1'}"/></svg>
       </button>
-      <button class="lbtn" onclick="event.stopPropagation();moveZ('${it.id}','up')" title="Subir capa">↑</button>
-      <button class="lbtn" onclick="event.stopPropagation();moveZ('${it.id}','down')" title="Bajar capa">↓</button>
     </div>`).join('');
 }
 
-function selectEl(id) { S.selId = id; switchRTab('props', document.querySelector('.rtab')); updateElProps(); updateLayers(); redraw(); }
-function toggleLock(id) { const el = S.elements.find(e => e.id === id); if (el) { el.locked = !el.locked; redraw(); updateLayers(); updateElProps(); } }
-function toggleVis(id) { const el = S.elements.find(e => e.id === id); if (el) { el.visible = !el.visible; redraw(); updateLayers(); } }
-function moveZ(id, dir) {
-  const i = S.elements.findIndex(e => e.id === id); if (i < 0) return; saveUndo();
-  if (dir === 'up' && i < S.elements.length - 1) [S.elements[i], S.elements[i+1]] = [S.elements[i+1], S.elements[i]];
-  else if (dir === 'down' && i > 0) [S.elements[i], S.elements[i-1]] = [S.elements[i-1], S.elements[i]];
-  redraw(); updateLayers();
+function selectLayer(id){
+  S.selId=id;
+  drawSelection();
+  updateLayers();
+  updateProps();
+  // auto-switch to props
+  switchTab('props', document.querySelectorAll('.rtab')[2]);
 }
 
-// ═══════════════════════════════════════════════════════
-//  ELEMENT PROPS
-// ═══════════════════════════════════════════════════════
-function updateElProps() {
-  const el = S.elements.find(e => e.id === S.selId);
-  const c = document.getElementById('el-props');
-  if (!el) { c.innerHTML = '<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0;">Seleccioná un elemento<br>para editar sus propiedades</p>'; return; }
+function toggleLock(id){
+  const l=S.layers.find(l=>l.id===id); if(!l) return;
+  saveUndo(); l.locked=!l.locked;
+  drawSelection(); updateLayers(); updateProps();
+}
 
-  const lockHtml = `
-    <div class="lock-row ${el.locked?'locked':''}" onclick="toggleLock('${el.id}')">
-      <span class="lock-icon">${el.locked?'🔒':'🔓'}</span>
-      <span class="lock-text">${el.locked?'Bloqueado — comercial NO edita':'Desbloqueado — comercial puede editar'}</span>
+function toggleVis(id){
+  const l=S.layers.find(l=>l.id===id); if(!l) return;
+  saveUndo(); l.visible=!l.visible;
+  renderEditor();
+}
+
+// ═══════════════════════════════════════
+//  PROPS PANEL
+// ═══════════════════════════════════════
+function updateProps(){
+  const el=document.getElementById('props-content');
+  const l=S.layers.find(l=>l.id===S.selId);
+  if(!l){ el.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:20px 0">Seleccioná un elemento para editar sus propiedades</p>'; return; }
+
+  const lockHtml=`
+    <div class="lock-row ${l.locked?'locked':''}" onclick="toggleLock('${l.id}')">
+      <span class="lico">${l.locked?'🔒':'🔓'}</span>
+      <span class="ltxt">${l.locked?'Bloqueado — comercial NO edita':'Desbloqueado — comercial puede editar'}</span>
     </div>`;
 
-  const labelHtml = `
-    <div class="prop-row"><span class="prop-label">Etiqueta</span>
-      <input type="text" class="prop-input" value="${el.label||''}" placeholder="Nombre del campo" oninput="setProp('label',this.value)">
-    </div>`;
+  const labelHtml=`
+    <p class="psec">Etiqueta del campo</p>
+    <input type="text" class="label-input" value="${escHtml(l.label||l.name)}" placeholder="Nombre del campo para el comercial" oninput="setProp('label',this.value)">
+    <p style="font-size:9px;color:var(--gm);margin-top:4px;margin-bottom:10px">El comercial verá este nombre en su panel de edición</p>`;
 
-  let specific = '';
-  if (el.type === 'text') specific = `
-    <div class="psec-title" style="margin-top:6px">Texto</div>
-    <textarea class="prop-ta" oninput="setProp('text',this.value)">${el.text||''}</textarea>
-    <div class="prop-row" style="margin-top:6px">
-      <span class="prop-label">Tamaño</span>
-      <input type="range" class="prop-input" min="12" max="220" value="${el.fontSize||60}" oninput="setPropN('fontSize',this.value);this.nextElementSibling.textContent=this.value+'px'">
-      <span style="font-size:10px;color:var(--gd);min-width:32px">${el.fontSize||60}px</span>
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Peso</span>
-      <select class="prop-select" onchange="setProp('fontWeight',this.value)">
-        ${['400','500','600','700','800'].map(w=>`<option value="${w}" ${el.fontWeight===w?'selected':''}>${{400:'Regular',500:'Medium',600:'SemiBold',700:'Bold',800:'ExtraBold'}[w]}</option>`).join('')}
-      </select>
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Color</span>
-      <input type="color" class="prop-input" value="${el.color||'#ffffff'}" oninput="setProp('color',this.value)">
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Alinear</span>
-      <select class="prop-select" onchange="setProp('align',this.value)">
-        <option value="left" ${el.align==='left'?'selected':''}>Izquierda</option>
-        <option value="center" ${el.align==='center'?'selected':''}>Centro</option>
-        <option value="right" ${el.align==='right'?'selected':''}>Derecha</option>
-      </select>
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Interl.</span>
-      <input type="range" class="prop-input" min="0.8" max="2.5" step="0.05" value="${el.lineHeight||1.25}" oninput="setPropN('lineHeight',this.value)">
-      <span style="font-size:10px;color:var(--gd);min-width:28px">${el.lineHeight||1.25}</span>
-    </div>`;
+  let typeProps='';
+  if(l.type==='text'){
+    const txt=l.textOverride!==null?l.textOverride:l.textContent||'';
+    typeProps=`
+      <div class="sep"></div>
+      <p class="psec">Texto</p>
+      <textarea class="prop-ta" oninput="setTextOverride('${l.id}',this.value)">${escHtml(txt)}</textarea>
+      ${l.fillOverride?`<div class="prop-row"><span class="prop-label">Color</span><input type="color" class="prop-input" value="${toHex(l.fillOverride)}" oninput="setFill('${l.id}',this.value)"></div>`:''}`;
+  } else if(l.fillOverride){
+    typeProps=`
+      <div class="sep"></div>
+      <p class="psec">Apariencia</p>
+      <div class="prop-row"><span class="prop-label">Color</span><input type="color" class="prop-input" value="${toHex(l.fillOverride)}" oninput="setFill('${l.id}',this.value)"></div>`;
+  }
 
-  else if (el.type === 'rect' || el.type === 'ellipse') specific = `
-    <div class="psec-title" style="margin-top:6px">Forma</div>
-    <div class="prop-row">
-      <span class="prop-label">Relleno</span>
-      <input type="color" class="prop-input" value="${hexFromFill(el.fill)}" oninput="updateFillColor(this.value)">
-      <input type="range" class="prop-input" min="0" max="100" value="${opacityFromFill(el.fill)}" oninput="updateFillOpacity(this.value)">
-      <span id="op-val" style="font-size:10px;color:var(--gd);min-width:28px">${opacityFromFill(el.fill)}%</span>
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Borde</span>
-      <input type="color" class="prop-input" value="${el.stroke&&el.stroke!=='none'?el.stroke:'#ffffff'}" oninput="setProp('stroke',this.value)">
-      <input type="number" class="prop-input" value="${el.strokeW||0}" min="0" max="30" style="width:44px" oninput="setPropN('strokeW',this.value)">
-    </div>
-    ${el.type==='rect'?`<div class="prop-row"><span class="prop-label">Radio</span>
-      <input type="range" class="prop-input" min="0" max="200" value="${el.radius||0}" oninput="setPropN('radius',this.value);this.nextElementSibling.textContent=this.value+'px'">
-      <span style="font-size:10px;color:var(--gd);min-width:32px">${el.radius||0}px</span></div>`:''}`;
-
-  else if (el.type === 'line') specific = `
-    <div class="psec-title" style="margin-top:6px">Línea</div>
-    <div class="prop-row">
-      <span class="prop-label">Color</span>
-      <input type="color" class="prop-input" value="${el.fill||'#ffffff'}" oninput="setProp('fill',this.value)">
-    </div>
-    <div class="prop-row">
-      <span class="prop-label">Grosor</span>
-      <input type="range" class="prop-input" min="1" max="60" value="${el.h||4}" oninput="setPropN('h',this.value);this.nextElementSibling.textContent=this.value+'px'">
-      <span style="font-size:10px;color:var(--gd);min-width:32px">${el.h||4}px</span>
-    </div>`;
-
-  else if (el.type === 'image') specific = `
-    <div class="psec-title" style="margin-top:6px">Imagen</div>
-    <button class="btn-blk btn-sec" onclick="triggerImgUpload()" style="margin-bottom:4px">Reemplazar imagen</button>`;
-
-  else if (el.type === 'qr') specific = `
-    <div class="psec-title" style="margin-top:6px">QR</div>
-    <div class="prop-row"><span class="prop-label">URL</span>
-      <input type="text" class="prop-input" value="${el.url||''}" oninput="setProp('url',this.value)">
-    </div>`;
-
-  const posHtml = `
+  const posHtml=`
     <div class="sep"></div>
-    <div class="psec-title">Posición y tamaño</div>
+    <p class="psec">Posición y escala</p>
     <div class="prop-2col">
-      <input type="number" class="prop-input" placeholder="X" value="${Math.round(el.x)}" oninput="setPropN('x',this.value)">
-      <input type="number" class="prop-input" placeholder="Y" value="${Math.round(el.y)}" oninput="setPropN('y',this.value)">
-      <input type="number" class="prop-input" placeholder="W" value="${Math.round(el.w)}" oninput="setPropN('w',this.value)">
-      <input type="number" class="prop-input" placeholder="H" value="${Math.round(el.h)}" oninput="setPropN('h',this.value)">
-    </div>`;
+      <input type="number" class="prop-input" placeholder="X offset" value="${Math.round(l.tx)}" oninput="setPropN('tx',this.value);applyTransform(S.layers.find(x=>x.id==='${l.id}'));computeBBoxes();drawSelection()">
+      <input type="number" class="prop-input" placeholder="Y offset" value="${Math.round(l.ty)}" oninput="setPropN('ty',this.value);applyTransform(S.layers.find(x=>x.id==='${l.id}'));computeBBoxes();drawSelection()">
+    </div>
+    <div class="prop-row">
+      <span class="prop-label">Escala X</span>
+      <input type="range" class="prop-input" min="0.1" max="3" step="0.01" value="${l.sx}" oninput="setPropN('sx',this.value);applyTransform(S.layers.find(x=>x.id==='${l.id}'));computeBBoxes();drawSelection()">
+      <span style="font-size:10px;color:var(--gd);min-width:32px">${l.sx.toFixed(2)}×</span>
+    </div>
+    <div class="prop-row">
+      <span class="prop-label">Escala Y</span>
+      <input type="range" class="prop-input" min="0.1" max="3" step="0.01" value="${l.sy}" oninput="setPropN('sy',this.value);applyTransform(S.layers.find(x=>x.id==='${l.id}'));computeBBoxes();drawSelection()">
+      <span style="font-size:10px;color:var(--gd);min-width:32px">${l.sy.toFixed(2)}×</span>
+    </div>
+    <button class="btn-blk btn-sec" style="margin-top:6px" onclick="resetTransform('${l.id}')">Resetear posición</button>`;
 
-  c.innerHTML = lockHtml + labelHtml + specific + posHtml;
+  el.innerHTML=lockHtml+labelHtml+typeProps+posHtml;
 }
 
-function setProp(k,v){ const el=S.elements.find(e=>e.id===S.selId); if(!el)return; el[k]=v; redraw(); }
-function setPropN(k,v){ const el=S.elements.find(e=>e.id===S.selId); if(!el)return; el[k]=parseFloat(v)||0; redraw(); }
+function setProp(k,v){ const l=S.layers.find(l=>l.id===S.selId); if(!l) return; l[k]=v; updateLayers(); }
+function setPropN(k,v){ const l=S.layers.find(l=>l.id===S.selId); if(!l) return; l[k]=parseFloat(v)||0; }
+function setTextOverride(id,v){ const l=S.layers.find(l=>l.id===id); if(!l) return; saveUndo(); l.textOverride=v; renderEditor(); }
+function setFill(id,v){ const l=S.layers.find(l=>l.id===id); if(!l) return; l.fillOverride=v; renderEditor(); }
+function resetTransform(id){ const l=S.layers.find(l=>l.id===id); if(!l) return; saveUndo(); l.tx=0;l.ty=0;l.sx=1;l.sy=1; renderEditor(); }
 
-function hexFromFill(f){ if(!f)return'#003366'; if(f.startsWith('#'))return f; const m=f.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/); if(m)return'#'+[m[1],m[2],m[3]].map(x=>parseInt(x).toString(16).padStart(2,'0')).join(''); return'#003366'; }
-function opacityFromFill(f){ if(!f)return 100; const m=f.match(/rgba\([^,]+,[^,]+,[^,]+,\s*([\d.]+)\)/); return m?Math.round(parseFloat(m[1])*100):100; }
-function updateFillColor(hex){ const el=S.elements.find(e=>e.id===S.selId); if(!el)return; const op=opacityFromFill(el.fill)/100; const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16); el.fill=`rgba(${r},${g},${b},${op})`; redraw(); }
-function updateFillOpacity(v){ const el=S.elements.find(e=>e.id===S.selId); if(!el)return; const h=hexFromFill(el.fill); const r=parseInt(h.slice(1,3),16),g=parseInt(h.slice(3,5),16),b=parseInt(h.slice(5,7),16); el.fill=`rgba(${r},${g},${b},${v/100})`; const ov=document.getElementById('op-val'); if(ov)ov.textContent=v+'%'; redraw(); }
+// ═══════════════════════════════════════
+//  UNDO / REDO
+// ═══════════════════════════════════════
+function snap(){ return JSON.stringify(S.layers.map(l=>({...l}))); }
+function saveUndo(){ undoStack.push(snap()); if(undoStack.length>50) undoStack.shift(); redoStack=[]; }
+function applySnap(s){ S.layers=JSON.parse(s); S.selId=null; renderEditor(); updateLayers(); updateProps(); }
+function undo(){ if(!undoStack.length) return; redoStack.push(snap()); applySnap(undoStack.pop()); }
+function redo(){ if(!redoStack.length) return; undoStack.push(snap()); applySnap(redoStack.pop()); }
 
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  SAVE / LOAD
-// ═══════════════════════════════════════════════════════
-async function saveDesign() {
-  const name = document.getElementById('design-name-input').value.trim() || 'Sin nombre';
-  const cat  = document.getElementById('design-cat').value;
-  const btn  = document.getElementById('btn-save');
-  btn.innerHTML = '<span class="spinner"></span>';
+// ═══════════════════════════════════════
+async function saveDesign(){
+  if(!S.svgSource){ showToast('Importá un SVG primero'); return; }
+  const name=document.getElementById('dname').value.trim()||'Sin nombre';
+  const cat=document.getElementById('dcat').value;
+  const btn=document.getElementById('btn-save');
+  btn.innerHTML='<span class="spinner"></span>';
 
-  const thumbData = canvas.toDataURL('image/jpeg', 0.45);
+  // Generate thumbnail via canvas render
+  const thumbData=await generateThumb();
 
-  const data = {
-    name, category: cat, cw: S.cw, ch: S.ch,
-    bgData: S.bgData || null,
-    elements: S.elements,
-    active: true,
-    thumbnail: thumbData,
-    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  const data={
+    name, category:cat,
+    svgSource:S.svgSource,
+    svgW:S.svgW, svgH:S.svgH,
+    layers:S.layers,
+    active:true,
+    thumbnail:thumbData,
+    updatedAt:firebase.firestore.FieldValue.serverTimestamp()
   };
 
-  try {
-    if (S.editingId) {
+  try{
+    if(S.editingId){
       await db.collection('ua_flyer_designs').doc(S.editingId).update(data);
     } else {
-      data.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-      const ref = await db.collection('ua_flyer_designs').add(data);
-      S.editingId = ref.id;
+      data.createdAt=firebase.firestore.FieldValue.serverTimestamp();
+      const ref=await db.collection('ua_flyer_designs').add(data);
+      S.editingId=ref.id;
     }
     showToast('✓ Diseño guardado y publicado');
     loadDesigns();
-  } catch (e) {
+  } catch(e){
     console.error(e);
     showToast('Error al guardar — revisá la config de Firebase');
   }
-
-  btn.innerHTML = '<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Guardar y publicar';
+  btn.innerHTML='<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Guardar y publicar';
 }
 
-async function loadDesigns() {
-  const el = document.getElementById('designs-list');
-  el.innerHTML = '<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">Cargando…</p>';
-  try {
-    const snap = await db.collection('ua_flyer_designs').orderBy('updatedAt','desc').get();
-    if (snap.empty) { el.innerHTML = '<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">No hay diseños aún.</p>'; return; }
-    el.innerHTML = snap.docs.map(d => {
-      const data = d.data();
-      const isActive = data.active !== false;
+async function generateThumb(){
+  const svgEl=document.querySelector('#editor-svg-wrap svg');
+  if(!svgEl) return null;
+  try{
+    const serializer=new XMLSerializer();
+    const svgStr=serializer.serializeToString(svgEl);
+    const blob=new Blob([svgStr],{type:'image/svg+xml'});
+    const url=URL.createObjectURL(blob);
+    return new Promise(resolve=>{
+      const img=new Image();
+      img.onload=()=>{
+        const tw=Math.round(svgEl.width.baseVal.value);
+        const th=Math.round(svgEl.height.baseVal.value);
+        const tc=document.createElement('canvas');
+        tc.width=tw; tc.height=th;
+        tc.getContext('2d').drawImage(img,0,0,tw,th);
+        URL.revokeObjectURL(url);
+        resolve(tc.toDataURL('image/jpeg',0.5));
+      };
+      img.onerror=()=>{ URL.revokeObjectURL(url); resolve(null); };
+      img.src=url;
+    });
+  } catch(e){ return null; }
+}
+
+async function loadDesigns(){
+  const el=document.getElementById('designs-list');
+  el.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">Cargando…</p>';
+  try{
+    const snap=await db.collection('ua_flyer_designs').orderBy('updatedAt','desc').get();
+    if(snap.empty){ el.innerHTML='<p style="font-size:11px;color:var(--gm);text-align:center;padding:16px 0">No hay diseños aún.</p>'; return; }
+    el.innerHTML=snap.docs.map(d=>{
+      const data=d.data();
+      const active=data.active!==false;
       return `<div class="ditem">
-        ${data.thumbnail?`<img class="dthumb" src="${data.thumbnail}" alt="">`:`<div class="dthumb-ph">sin img</div>`}
+        ${data.thumbnail?`<img class="dthumb" src="${data.thumbnail}" alt="">`:`<div class="dthumb" style="display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--gm)">SVG</div>`}
         <div class="dinfo">
           <div class="dname">${data.name||'Sin nombre'}</div>
-          <div class="dcat">${data.category||''} · ${isActive?'✓ activo':'✗ inactivo'}</div>
+          <div class="dcat">${data.category||''} · ${active?'✓ activo':'✗ inactivo'}</div>
         </div>
         <div class="dacts">
           <button class="dact" onclick="loadDesign('${d.id}')" title="Editar">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></svg>
           </button>
-          <button class="dact" onclick="toggleActive('${d.id}',${!isActive})" title="${isActive?'Desactivar':'Activar'}">
-            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/>${isActive?'<path d="M9 12l2 2 4-4"/>':'<line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>'}</svg>
+          <button class="dact" onclick="toggleActive('${d.id}',${!active})" title="${active?'Desactivar':'Activar'}">
+            <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/>${active?'<path d="M9 12l2 2 4-4"/>':'<line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>'}</svg>
           </button>
           <button class="dact del" onclick="deleteDesign('${d.id}')" title="Eliminar">
             <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
@@ -976,98 +925,100 @@ async function loadDesigns() {
         </div>
       </div>`;
     }).join('');
-  } catch(e){ console.error(e); el.innerHTML='<p style="font-size:11px;color:var(--fucsia);text-align:center;padding:12px">Error al cargar</p>'; }
+  } catch(e){ el.innerHTML='<p style="font-size:11px;color:var(--fucsia);text-align:center;padding:12px">Error al cargar</p>'; }
 }
 
-async function loadDesign(id) {
-  try {
-    const snap = await db.collection('ua_flyer_designs').doc(id).get();
-    if (!snap.exists) return;
-    const data = snap.data();
-    S.editingId = id;
-    S.cw = data.cw || 1080; S.ch = data.ch || 1920;
-    S.bgData = data.bgData || null;
-    S.elements = data.elements || [];
-    S.selId = null;
-    canvas.width = S.cw; canvas.height = S.ch;
-    canvas.style.width = S.cw * SCALE + 'px';
-    canvas.style.height = S.ch * SCALE + 'px';
-    document.getElementById('design-name-input').value = data.name || '';
-    document.getElementById('design-cat').value = data.category || 'General';
-    undoStack = []; redoStack = [];
-    redraw(); updateLayers(); updateElProps();
-    showToast('Diseño cargado: ' + data.name);
-    switchRTab('props', document.querySelectorAll('.rtab')[0]);
-  } catch(e){ console.error(e); showToast('Error al cargar el diseño'); }
+async function loadDesign(id){
+  try{
+    const snap=await db.collection('ua_flyer_designs').doc(id).get();
+    if(!snap.exists) return;
+    const data=snap.data();
+    S.editingId=id;
+    S.svgSource=data.svgSource;
+    S.svgW=data.svgW||800; S.svgH=data.svgH||600;
+    S.layers=data.layers||[];
+    S.selId=null;
+    document.getElementById('dname').value=data.name||'';
+    document.getElementById('dcat').value=data.category||'General';
+    undoStack=[]; redoStack=[];
+    renderEditor();
+    switchTab('layers', document.querySelectorAll('.rtab')[1]);
+
+    const info=document.getElementById('svg-file-info');
+    info.style.display='';
+    info.innerHTML=`<div class="file-info"><svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color:var(--azul)"><polyline points="20 6 9 17 4 12"/></svg> Diseño cargado: ${data.name}</div>`;
+    showToast('Diseño cargado: '+data.name);
+  } catch(e){ console.error(e); showToast('Error al cargar'); }
 }
 
-async function toggleActive(id, val) {
-  await db.collection('ua_flyer_designs').doc(id).update({ active: val });
+async function toggleActive(id,val){
+  await db.collection('ua_flyer_designs').doc(id).update({active:val});
   loadDesigns();
 }
 
-async function deleteDesign(id) {
-  if (!confirm('¿Eliminar este diseño permanentemente?')) return;
+async function deleteDesign(id){
+  if(!confirm('¿Eliminar este diseño?')) return;
   await db.collection('ua_flyer_designs').doc(id).delete();
-  if (S.editingId === id) newDesign();
+  if(S.editingId===id) newDesign();
   loadDesigns();
 }
 
-function newDesign() {
-  S.elements = []; S.selId = null; S.editingId = null; S.bgData = null;
-  document.getElementById('design-name-input').value = 'Nuevo diseño';
-  document.getElementById('pdf-file-info').style.display = 'none';
-  undoStack = []; redoStack = [];
-  setCanvasSize(1080, 1920, document.getElementById('fmt-story'));
-  redraw(); updateLayers(); updateElProps();
+function newDesign(){
+  S.svgSource=null; S.layers=[]; S.selId=null; S.editingId=null; S.svgW=0; S.svgH=0;
+  document.getElementById('dname').value='Nuevo diseño';
+  document.getElementById('svg-file-info').style.display='none';
+  const wrap=document.getElementById('editor-svg-wrap');
+  const old=wrap.querySelector('svg'); if(old) old.remove();
+  const sc=document.getElementById('sel-canvas'); sc.width=0; sc.height=0;
+  undoStack=[]; redoStack=[];
+  updateLayers(); updateProps();
 }
 
-// ═══════════════════════════════════════════════════════
-//  PANEL / TOOL UTILS
-// ═══════════════════════════════════════════════════════
-function switchRTab(name, btn) {
-  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  ['props','layers','designs'].forEach(n => document.getElementById('rt-'+n).style.display = n===name?'':'none');
-  if (name === 'designs') loadDesigns();
+// ═══════════════════════════════════════
+//  TABS
+// ═══════════════════════════════════════
+function switchTab(name, btn){
+  document.querySelectorAll('.rtab').forEach(t=>t.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  ['import','layers','props','designs'].forEach(n=>document.getElementById('tab-'+n).style.display=n===name?'':'none');
+  if(name==='designs') loadDesigns();
 }
 
-function setActiveTool(t) {
-  document.querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tool-'+t)?.classList.add('active');
-}
-
-// ═══════════════════════════════════════════════════════
+// ═══════════════════════════════════════
 //  KEYBOARD
-// ═══════════════════════════════════════════════════════
-function bindKeys() {
-  document.addEventListener('keydown', e => {
-    if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT') return;
-    if ((e.ctrlKey||e.metaKey) && e.key==='z') { e.preventDefault(); undo(); }
-    if ((e.ctrlKey||e.metaKey) && (e.key==='y'||(e.shiftKey&&e.key==='z'))) { e.preventDefault(); redo(); }
-    if ((e.ctrlKey||e.metaKey) && e.key==='s') { e.preventDefault(); saveDesign(); }
-    if (e.key==='Delete'||e.key==='Backspace') deleteSelected();
-    if (e.key==='t') addElement('text');
-    if (e.key==='r') addElement('rect');
-    const el = S.elements.find(e2=>e2.id===S.selId);
-    if (el && !el.locked) {
-      const step = e.shiftKey ? 10 : 1;
-      if (e.key==='ArrowLeft') { e.preventDefault(); el.x -= step; redraw(); }
-      if (e.key==='ArrowRight'){ e.preventDefault(); el.x += step; redraw(); }
-      if (e.key==='ArrowUp')   { e.preventDefault(); el.y -= step; redraw(); }
-      if (e.key==='ArrowDown') { e.preventDefault(); el.y += step; redraw(); }
+// ═══════════════════════════════════════
+function bindKeys(){
+  document.addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT') return;
+    if((e.ctrlKey||e.metaKey)&&e.key==='z'){e.preventDefault();undo();}
+    if((e.ctrlKey||e.metaKey)&&(e.key==='y'||(e.shiftKey&&e.key==='z'))){e.preventDefault();redo();}
+    if((e.ctrlKey||e.metaKey)&&e.key==='s'){e.preventDefault();saveDesign();}
+    // nudge selected layer
+    const l=S.layers.find(l=>l.id===S.selId);
+    if(l&&!l.locked){
+      const step=e.shiftKey?10:1;
+      if(e.key==='ArrowLeft'){e.preventDefault();l.tx-=step;applyTransform(l);computeBBoxes();drawSelection();}
+      if(e.key==='ArrowRight'){e.preventDefault();l.tx+=step;applyTransform(l);computeBBoxes();drawSelection();}
+      if(e.key==='ArrowUp'){e.preventDefault();l.ty-=step;applyTransform(l);computeBBoxes();drawSelection();}
+      if(e.key==='ArrowDown'){e.preventDefault();l.ty+=step;applyTransform(l);computeBBoxes();drawSelection();}
     }
   });
 }
 
-// ═══════════════════════════════════════════════════════
-//  TOAST
-// ═══════════════════════════════════════════════════════
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+// ═══════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════
+function toHex(color){
+  if(!color) return '#000000';
+  if(color.startsWith('#')) return color.substring(0,7);
+  const m=color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+  if(m) return '#'+[m[1],m[2],m[3]].map(x=>parseInt(x).toString(16).padStart(2,'0')).join('');
+  const tmp=document.createElement('canvas').getContext('2d');
+  tmp.fillStyle=color;
+  return tmp.fillStyle;
 }
+function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
 </script>
 </body>
 </html>
